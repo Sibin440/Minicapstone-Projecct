@@ -1,0 +1,1492 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Demo User",
+      "email": "demo@mithaimandir.com",
+      "phone": "9876543210",
+      "password": "$2a$10$I8E6zdaInMsIFFvT3JgPweetM5392iOBCuDvTrUFlcetG0R95hkf6",
+      "role": "customer",
+      "created_at": "2026-09-02T06:30:49.666Z"
+    },
+    {
+      "id": 1788332134738,
+      "name": "sibin",
+      "email": "sibin3190@gmail.com",
+      "phone": "9344675084",
+      "password": "$2a$10$Lj4c.NKt0PCtWlWFq3T/NeFfoGAVL5m230VTqrPzcK/TFKqeAym0i",
+      "role": "customer",
+      "created_at": "2026-09-02T06:55:34.585Z"
+    },
+    {
+      "id": 999,
+      "name": "Bakery Admin",
+      "email": "admin@svsbakery.com",
+      "phone": "9876543210",
+      "password": "$2a$10$8K5jlN0e6/Di1SvAq8zqQ.ZgOBxOodp4NUWUgddXZaj86y9XarbCq",
+      "role": "admin",
+      "created_at": "2026-09-02T10:13:13.356Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1788330649995,
+      "name": "Sweets",
+      "slug": "sweets",
+      "description": "Traditional Indian sweets made with pure ingredients",
+      "image_url": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=300&fit=crop",
+      "icon": "🍮",
+      "display_order": 1,
+      "is_active": 1
+    },
+    {
+      "id": 1788330649511,
+      "name": "Savouries",
+      "slug": "savouries",
+      "description": "Crispy and flavourful Indian savouries",
+      "image_url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop",
+      "icon": "🧆",
+      "display_order": 2,
+      "is_active": 1
+    },
+    {
+      "id": 1788330650030,
+      "name": "Cakes",
+      "slug": "cakes",
+      "description": "Premium bakery cakes with traditional flavours",
+      "image_url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
+      "icon": "🎂",
+      "display_order": 3,
+      "is_active": 1
+    },
+    {
+      "id": 1788330650054,
+      "name": "Snacks",
+      "slug": "snacks",
+      "description": "Authentic traditional Indian snacks",
+      "image_url": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=400&h=300&fit=crop",
+      "icon": "🥨",
+      "display_order": 4,
+      "is_active": 1
+    },
+    {
+      "id": 1788330650110,
+      "name": "Cookies & Biscuits",
+      "slug": "cookies-biscuits",
+      "description": "Handcrafted cookies and biscuits",
+      "image_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop",
+      "icon": "🍪",
+      "display_order": 5,
+      "is_active": 1
+    },
+    {
+      "id": 1788330649517,
+      "name": "Breads",
+      "slug": "breads",
+      "description": "Freshly baked artisan breads",
+      "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
+      "icon": "🍞",
+      "display_order": 6,
+      "is_active": 1
+    },
+    {
+      "id": 1788330650251,
+      "name": "Beverages",
+      "slug": "beverages",
+      "description": "Premium drink mixes and blends",
+      "image_url": "https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400&h=300&fit=crop",
+      "icon": "☕",
+      "display_order": 7,
+      "is_active": 1
+    }
+  ],
+  "products": [
+    {
+      "id": 1788330649704,
+      "category_id": 1788330649995,
+      "name": "Kaju Katli",
+      "slug": "kaju-katli",
+      "description": "Smooth cashew fudge with ghee.",
+      "image_url": "https://images.unsplash.com/photo-1624454002302-36b824d7bd0a?w=600&h=500&fit=crop",
+      "base_price": 321.43,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 1240,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T06:30:49.454Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788330650224,
+      "category_id": 1788330649995,
+      "name": "Premium Kaju Kathily",
+      "slug": "premium-kaju-kathily",
+      "description": "Premium diamond cashew sweet.",
+      "image_url": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&h=500&fit=crop",
+      "base_price": 380.95,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.9,
+      "rating_count": 890,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T06:30:49.460Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788330649508,
+      "category_id": 1788330649995,
+      "name": "Gulab Jamun",
+      "slug": "gulab-jamun",
+      "description": "Soft jamuns in rose syrup.",
+      "image_url": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&h=500&fit=crop",
+      "base_price": 196.19,
+      "discount_percent": 10,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.6,
+      "rating_count": 1560,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T06:30:49.466Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788330649971,
+      "category_id": 1788330650030,
+      "name": "Ajmeer Cake",
+      "slug": "ajmeer-cake",
+      "description": "Traditional dense cake.",
+      "image_url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=500&fit=crop",
+      "base_price": 204.76,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 760,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T06:30:49.469Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788430001001,
+      "category_id": 1788330650030,
+      "name": "Vanilla Drip Cake",
+      "slug": "vanilla-drip-cake",
+      "description": "Elegant layered vanilla cake with rich chocolate drip frosting, topped with cream rosettes and colourful sprinkles. A showstopper for every celebration.",
+      "image_url": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=500&fit=crop",
+      "base_price": 549,
+      "discount_percent": 10,
+      "is_bestseller": 1,
+      "is_new": 1,
+      "is_offer": 1,
+      "rating": 4.9,
+      "rating_count": 320,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:35:00.000Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788430001002,
+      "category_id": 1788330650030,
+      "name": "Rose Petal Cream Cake",
+      "slug": "rose-petal-cream-cake",
+      "description": "Soft pink strawberry cream cake adorned with fresh roses, sugar hearts, and floral decorations. Perfect for birthdays and anniversaries.",
+      "image_url": "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=500&fit=crop",
+      "base_price": 629,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 215,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:35:00.001Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788430001003,
+      "category_id": 1788330650030,
+      "name": "Dark Chocolate Fudge Cake",
+      "slug": "dark-chocolate-fudge-cake",
+      "description": "Indulgent triple-layer dark chocolate cake with smooth ganache filling and a glossy chocolate truffle topping. Pure chocolate heaven.",
+      "image_url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=500&fit=crop",
+      "base_price": 499,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 189,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:35:00.002Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788430001004,
+      "category_id": 1788330650030,
+      "name": "Chocolate Truffle Cake",
+      "slug": "chocolate-truffle-cake",
+      "description": "Decadent chocolate truffle cake with mirror-glaze finish, topped with glazed cherries and chocolate shards. A classic crowd-pleaser.",
+      "image_url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=500&fit=crop",
+      "base_price": 579,
+      "discount_percent": 15,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.8,
+      "rating_count": 542,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:35:00.003Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788330649654,
+      "category_id": 1788330650054,
+      "name": "Athirasam",
+      "slug": "athirasam",
+      "description": "Jaggery rice flour snack.",
+      "image_url": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&h=500&fit=crop",
+      "base_price": 204.76,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.6,
+      "rating_count": 870,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T06:30:49.471Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001001,
+      "category_id": 1788330649995,
+      "name": "Rasgulla",
+      "slug": "rasgulla",
+      "description": "Soft spongy cottage cheese balls soaked in light sugar syrup. A classic Bengali delight.",
+      "image_url": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&h=500&fit=crop",
+      "base_price": 185,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 1820,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.975Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001005,
+      "category_id": 1788330649995,
+      "name": "Motichoor Ladoo",
+      "slug": "motichoor-ladoo",
+      "description": "Soft melt-in-mouth ladoos made from tiny fried gram flour pearls with aromatic cardamom.",
+      "image_url": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&h=500&fit=crop",
+      "base_price": 245,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.8,
+      "rating_count": 1340,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001025,
+      "category_id": 1788330649511,
+      "name": "Murukku",
+      "slug": "murukku",
+      "description": "Crispy spiral rice flour savoury, deep-fried with cumin and sesame seeds.",
+      "image_url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=500&fit=crop",
+      "base_price": 175,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 980,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001029,
+      "category_id": 1788330649511,
+      "name": "Chivda Mix",
+      "slug": "chivda-mix",
+      "description": "Light flattened rice mix with peanuts, curry leaves, green chillies and turmeric.",
+      "image_url": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&h=500&fit=crop",
+      "base_price": 145,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.5,
+      "rating_count": 870,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001033,
+      "category_id": 1788330649511,
+      "name": "Ribbon Pakoda",
+      "slug": "ribbon-pakoda",
+      "description": "Thin ribbon-shaped rice flour crisps seasoned with chilli and carom seeds.",
+      "image_url": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&h=500&fit=crop",
+      "base_price": 160,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.6,
+      "rating_count": 640,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001037,
+      "category_id": 1788330649511,
+      "name": "Chakli",
+      "slug": "chakli",
+      "description": "Crunchy spiral savoury made from rice and urad dal flour with ajwain and sesame.",
+      "image_url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=500&fit=crop",
+      "base_price": 190,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 1120,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001041,
+      "category_id": 1788330649511,
+      "name": "Thattai",
+      "slug": "thattai",
+      "description": "Thin, crispy rice flour discs with chana dal and chillies — a Tamil Nadu classic.",
+      "image_url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=500&fit=crop",
+      "base_price": 155,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.5,
+      "rating_count": 560,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001081,
+      "category_id": 1788330650054,
+      "name": "Banana Chips",
+      "slug": "banana-chips",
+      "description": "Crispy raw banana slices fried in coconut oil and seasoned with salt and spices.",
+      "image_url": "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=600&h=500&fit=crop",
+      "base_price": 120,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.5,
+      "rating_count": 1640,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001085,
+      "category_id": 1788330650054,
+      "name": "Tapioca Chips",
+      "slug": "tapioca-chips",
+      "description": "Thin translucent Kerala-style tapioca wafers with a light crunch and subtle seasoning.",
+      "image_url": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&h=500&fit=crop",
+      "base_price": 110,
+      "discount_percent": 5,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.4,
+      "rating_count": 760,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001089,
+      "category_id": 1788330650054,
+      "name": "Masala Peanuts",
+      "slug": "masala-peanuts",
+      "description": "Crunchy peanuts coated in besan batter with chilli, chaat masala and aamchur.",
+      "image_url": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&h=500&fit=crop",
+      "base_price": 130,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.6,
+      "rating_count": 1120,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001093,
+      "category_id": 1788330650054,
+      "name": "Roasted Cashews",
+      "slug": "roasted-cashews",
+      "description": "Premium whole cashews lightly roasted and salted — a healthy and delicious snack.",
+      "image_url": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&h=500&fit=crop",
+      "base_price": 380,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 940,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001117,
+      "category_id": 1788330650110,
+      "name": "Butter Cookies",
+      "slug": "butter-cookies",
+      "description": "Melt-in-mouth shortbread butter cookies baked to a golden crisp with vanilla essence.",
+      "image_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=500&fit=crop",
+      "base_price": 185,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 1280,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001121,
+      "category_id": 1788330650110,
+      "name": "Chocolate Chip Cookies",
+      "slug": "chocolate-chip-cookies",
+      "description": "Soft-baked American-style cookies loaded with dark and milk chocolate chips.",
+      "image_url": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&h=500&fit=crop",
+      "base_price": 220,
+      "discount_percent": 10,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.9,
+      "rating_count": 1640,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001125,
+      "category_id": 1788330650110,
+      "name": "Coconut Cookies",
+      "slug": "coconut-cookies",
+      "description": "Crunchy cookies packed with desiccated coconut and lightly flavoured with cardamom.",
+      "image_url": "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=600&h=500&fit=crop",
+      "base_price": 165,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.5,
+      "rating_count": 760,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001129,
+      "category_id": 1788330650110,
+      "name": "Almond Cookies",
+      "slug": "almond-cookies",
+      "description": "Delicate almond flour cookies with a nuttly aroma and melt-in-mouth texture.",
+      "image_url": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=500&fit=crop",
+      "base_price": 280,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 540,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001133,
+      "category_id": 1788330650110,
+      "name": "Atta Biscuits",
+      "slug": "atta-biscuits",
+      "description": "Wholesome whole wheat biscuits with jaggery — a healthy traditional everyday biscuit.",
+      "image_url": "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=500&fit=crop",
+      "base_price": 140,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.4,
+      "rating_count": 1020,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001157,
+      "category_id": 1788330649517,
+      "name": "Whole Wheat Bread",
+      "slug": "whole-wheat-bread",
+      "description": "Freshly baked whole wheat sandwich loaf — soft, nutritious and perfect for daily use.",
+      "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=500&fit=crop",
+      "base_price": 55,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.5,
+      "rating_count": 3200,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001160,
+      "category_id": 1788330649517,
+      "name": "Multigrain Bread",
+      "slug": "multigrain-bread",
+      "description": "Fibre-rich loaf packed with seeds and grains — healthy, hearty and delicious.",
+      "image_url": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&h=500&fit=crop",
+      "base_price": 75,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.7,
+      "rating_count": 1840,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001163,
+      "category_id": 1788330649517,
+      "name": "Sourdough Loaf",
+      "slug": "sourdough-loaf",
+      "description": "Artisan long-fermented sourdough with a crisp crust and open, tangy crumb.",
+      "image_url": "https://images.unsplash.com/photo-1486887396153-fa416526c108?w=600&h=500&fit=crop",
+      "base_price": 120,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 780,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001166,
+      "category_id": 1788330649517,
+      "name": "Garlic Herb Bread",
+      "slug": "garlic-herb-bread",
+      "description": "Soft baguette-style bread infused with garlic butter and mixed Italian herbs.",
+      "image_url": "https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=600&h=500&fit=crop",
+      "base_price": 90,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.6,
+      "rating_count": 1120,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001169,
+      "category_id": 1788330649517,
+      "name": "Dinner Rolls",
+      "slug": "dinner-rolls",
+      "description": "Fluffy soft milk dinner rolls — perfect alongside soups, curries, or as slider buns.",
+      "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=500&fit=crop",
+      "base_price": 65,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.4,
+      "rating_count": 1560,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001187,
+      "category_id": 1788330650251,
+      "name": "Masala Chai Mix",
+      "slug": "masala-chai-mix",
+      "description": "Aromatic spiced tea premix with ginger, cardamom, clove, cinnamon and black pepper.",
+      "image_url": "https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=600&h=500&fit=crop",
+      "base_price": 180,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.8,
+      "rating_count": 2100,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001191,
+      "category_id": 1788330650251,
+      "name": "Filter Coffee Powder",
+      "slug": "filter-coffee-powder",
+      "description": "South Indian blend of dark-roasted coffee and chicory — for the perfect decoction.",
+      "image_url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=500&fit=crop",
+      "base_price": 220,
+      "discount_percent": 5,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.9,
+      "rating_count": 1840,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001195,
+      "category_id": 1788330650251,
+      "name": "Badam Drink Mix",
+      "slug": "badam-drink-mix",
+      "description": "Premium almond-saffron instant beverage mix for a rich and nourishing hot or cold drink.",
+      "image_url": "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&h=500&fit=crop",
+      "base_price": 280,
+      "discount_percent": 0,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 0,
+      "rating": 4.7,
+      "rating_count": 960,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001199,
+      "category_id": 1788330650251,
+      "name": "Rose Milk Syrup",
+      "slug": "rose-milk-syrup",
+      "description": "Fragrant rose essence syrup — just add chilled milk for an instant pink rose milk.",
+      "image_url": "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&h=500&fit=crop",
+      "base_price": 160,
+      "discount_percent": 0,
+      "is_bestseller": 0,
+      "is_new": 1,
+      "is_offer": 0,
+      "rating": 4.5,
+      "rating_count": 720,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    },
+    {
+      "id": 1788600001203,
+      "category_id": 1788330650251,
+      "name": "Mango Lassi Mix",
+      "slug": "mango-lassi-mix",
+      "description": "Instant Alphonso mango lassi powder — blend with yogurt and chilled water for a creamy drink.",
+      "image_url": "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&h=500&fit=crop",
+      "base_price": 200,
+      "discount_percent": 10,
+      "is_bestseller": 1,
+      "is_new": 0,
+      "is_offer": 1,
+      "rating": 4.7,
+      "rating_count": 1120,
+      "is_pure_veg": 1,
+      "is_active": 1,
+      "created_at": "2026-09-02T08:44:01.976Z",
+      "stock_qty": 30,
+      "low_stock_threshold": 10
+    }
+  ],
+  "product_weights": [
+    {
+      "id": 1788330649567,
+      "product_id": 1788330649704,
+      "weight": "250 gms",
+      "price": 321.43
+    },
+    {
+      "id": 1788330650336,
+      "product_id": 1788330649704,
+      "weight": "500 gms",
+      "price": 628.57
+    },
+    {
+      "id": 1788330650222,
+      "product_id": 1788330649704,
+      "weight": "1000 gms",
+      "price": 1228.57
+    },
+    {
+      "id": 1788330650238,
+      "product_id": 1788330650224,
+      "weight": "250 gms",
+      "price": 380.95
+    },
+    {
+      "id": 1788330650309,
+      "product_id": 1788330650224,
+      "weight": "500 gms",
+      "price": 742.86
+    },
+    {
+      "id": 1788330650011,
+      "product_id": 1788330650224,
+      "weight": "1000 gms",
+      "price": 1457.14
+    },
+    {
+      "id": 1788330649907,
+      "product_id": 1788330649508,
+      "weight": "250 gms",
+      "price": 196.19
+    },
+    {
+      "id": 1788330650063,
+      "product_id": 1788330649508,
+      "weight": "500 gms",
+      "price": 380.95
+    },
+    {
+      "id": 1788330650457,
+      "product_id": 1788330649508,
+      "weight": "1000 gms",
+      "price": 742.86
+    },
+    {
+      "id": 1788330649648,
+      "product_id": 1788330649971,
+      "weight": "250 gms",
+      "price": 204.76
+    },
+    {
+      "id": 1788330650382,
+      "product_id": 1788330649971,
+      "weight": "500 gms",
+      "price": 400
+    },
+    {
+      "id": 1788330649843,
+      "product_id": 1788330649971,
+      "weight": "1000 gms",
+      "price": 780.95
+    },
+    {
+      "id": 1788430002001,
+      "product_id": 1788430001001,
+      "weight": "500 gms",
+      "price": 549
+    },
+    {
+      "id": 1788430002002,
+      "product_id": 1788430001001,
+      "weight": "1000 gms",
+      "price": 999
+    },
+    {
+      "id": 1788430002003,
+      "product_id": 1788430001001,
+      "weight": "2000 gms",
+      "price": 1849
+    },
+    {
+      "id": 1788430002004,
+      "product_id": 1788430001002,
+      "weight": "500 gms",
+      "price": 629
+    },
+    {
+      "id": 1788430002005,
+      "product_id": 1788430001002,
+      "weight": "1000 gms",
+      "price": 1149
+    },
+    {
+      "id": 1788430002006,
+      "product_id": 1788430001002,
+      "weight": "2000 gms",
+      "price": 2099
+    },
+    {
+      "id": 1788430002007,
+      "product_id": 1788430001003,
+      "weight": "500 gms",
+      "price": 499
+    },
+    {
+      "id": 1788430002008,
+      "product_id": 1788430001003,
+      "weight": "1000 gms",
+      "price": 899
+    },
+    {
+      "id": 1788430002009,
+      "product_id": 1788430001003,
+      "weight": "2000 gms",
+      "price": 1699
+    },
+    {
+      "id": 1788430002010,
+      "product_id": 1788430001004,
+      "weight": "500 gms",
+      "price": 579
+    },
+    {
+      "id": 1788430002011,
+      "product_id": 1788430001004,
+      "weight": "1000 gms",
+      "price": 1049
+    },
+    {
+      "id": 1788430002012,
+      "product_id": 1788430001004,
+      "weight": "2000 gms",
+      "price": 1949
+    },
+    {
+      "id": 1788330650453,
+      "product_id": 1788330649654,
+      "weight": "250 gms",
+      "price": 204.76
+    },
+    {
+      "id": 1788330650325,
+      "product_id": 1788330649654,
+      "weight": "500 gms",
+      "price": 400
+    },
+    {
+      "id": 1788330650053,
+      "product_id": 1788330649654,
+      "weight": "1000 gms",
+      "price": 780.95
+    },
+    {
+      "id": 1788600001002,
+      "product_id": 1788600001001,
+      "weight": "250 gms",
+      "price": 185
+    },
+    {
+      "id": 1788600001003,
+      "product_id": 1788600001001,
+      "weight": "500 gms",
+      "price": 351.5
+    },
+    {
+      "id": 1788600001004,
+      "product_id": 1788600001001,
+      "weight": "1000 gms",
+      "price": 684.5
+    },
+    {
+      "id": 1788600001006,
+      "product_id": 1788600001005,
+      "weight": "250 gms",
+      "price": 245
+    },
+    {
+      "id": 1788600001007,
+      "product_id": 1788600001005,
+      "weight": "500 gms",
+      "price": 465.5
+    },
+    {
+      "id": 1788600001008,
+      "product_id": 1788600001005,
+      "weight": "1000 gms",
+      "price": 906.5
+    },
+    {
+      "id": 1788600001026,
+      "product_id": 1788600001025,
+      "weight": "250 gms",
+      "price": 175
+    },
+    {
+      "id": 1788600001027,
+      "product_id": 1788600001025,
+      "weight": "500 gms",
+      "price": 332.5
+    },
+    {
+      "id": 1788600001028,
+      "product_id": 1788600001025,
+      "weight": "1000 gms",
+      "price": 647.5
+    },
+    {
+      "id": 1788600001030,
+      "product_id": 1788600001029,
+      "weight": "250 gms",
+      "price": 145
+    },
+    {
+      "id": 1788600001031,
+      "product_id": 1788600001029,
+      "weight": "500 gms",
+      "price": 275.5
+    },
+    {
+      "id": 1788600001032,
+      "product_id": 1788600001029,
+      "weight": "1000 gms",
+      "price": 536.5
+    },
+    {
+      "id": 1788600001034,
+      "product_id": 1788600001033,
+      "weight": "250 gms",
+      "price": 160
+    },
+    {
+      "id": 1788600001035,
+      "product_id": 1788600001033,
+      "weight": "500 gms",
+      "price": 304
+    },
+    {
+      "id": 1788600001036,
+      "product_id": 1788600001033,
+      "weight": "1000 gms",
+      "price": 592
+    },
+    {
+      "id": 1788600001038,
+      "product_id": 1788600001037,
+      "weight": "250 gms",
+      "price": 190
+    },
+    {
+      "id": 1788600001039,
+      "product_id": 1788600001037,
+      "weight": "500 gms",
+      "price": 361
+    },
+    {
+      "id": 1788600001040,
+      "product_id": 1788600001037,
+      "weight": "1000 gms",
+      "price": 703
+    },
+    {
+      "id": 1788600001042,
+      "product_id": 1788600001041,
+      "weight": "250 gms",
+      "price": 155
+    },
+    {
+      "id": 1788600001043,
+      "product_id": 1788600001041,
+      "weight": "500 gms",
+      "price": 294.5
+    },
+    {
+      "id": 1788600001044,
+      "product_id": 1788600001041,
+      "weight": "1000 gms",
+      "price": 573.5
+    },
+    {
+      "id": 1788600001082,
+      "product_id": 1788600001081,
+      "weight": "250 gms",
+      "price": 120
+    },
+    {
+      "id": 1788600001083,
+      "product_id": 1788600001081,
+      "weight": "500 gms",
+      "price": 228
+    },
+    {
+      "id": 1788600001084,
+      "product_id": 1788600001081,
+      "weight": "1000 gms",
+      "price": 444
+    },
+    {
+      "id": 1788600001086,
+      "product_id": 1788600001085,
+      "weight": "250 gms",
+      "price": 110
+    },
+    {
+      "id": 1788600001087,
+      "product_id": 1788600001085,
+      "weight": "500 gms",
+      "price": 209
+    },
+    {
+      "id": 1788600001088,
+      "product_id": 1788600001085,
+      "weight": "1000 gms",
+      "price": 407
+    },
+    {
+      "id": 1788600001090,
+      "product_id": 1788600001089,
+      "weight": "250 gms",
+      "price": 130
+    },
+    {
+      "id": 1788600001091,
+      "product_id": 1788600001089,
+      "weight": "500 gms",
+      "price": 247
+    },
+    {
+      "id": 1788600001092,
+      "product_id": 1788600001089,
+      "weight": "1000 gms",
+      "price": 481
+    },
+    {
+      "id": 1788600001094,
+      "product_id": 1788600001093,
+      "weight": "250 gms",
+      "price": 380
+    },
+    {
+      "id": 1788600001095,
+      "product_id": 1788600001093,
+      "weight": "500 gms",
+      "price": 722
+    },
+    {
+      "id": 1788600001096,
+      "product_id": 1788600001093,
+      "weight": "1000 gms",
+      "price": 1406
+    },
+    {
+      "id": 1788600001118,
+      "product_id": 1788600001117,
+      "weight": "250 gms",
+      "price": 185
+    },
+    {
+      "id": 1788600001119,
+      "product_id": 1788600001117,
+      "weight": "500 gms",
+      "price": 351.5
+    },
+    {
+      "id": 1788600001120,
+      "product_id": 1788600001117,
+      "weight": "1000 gms",
+      "price": 684.5
+    },
+    {
+      "id": 1788600001122,
+      "product_id": 1788600001121,
+      "weight": "250 gms",
+      "price": 220
+    },
+    {
+      "id": 1788600001123,
+      "product_id": 1788600001121,
+      "weight": "500 gms",
+      "price": 418
+    },
+    {
+      "id": 1788600001124,
+      "product_id": 1788600001121,
+      "weight": "1000 gms",
+      "price": 814
+    },
+    {
+      "id": 1788600001126,
+      "product_id": 1788600001125,
+      "weight": "250 gms",
+      "price": 165
+    },
+    {
+      "id": 1788600001127,
+      "product_id": 1788600001125,
+      "weight": "500 gms",
+      "price": 313.5
+    },
+    {
+      "id": 1788600001128,
+      "product_id": 1788600001125,
+      "weight": "1000 gms",
+      "price": 610.5
+    },
+    {
+      "id": 1788600001130,
+      "product_id": 1788600001129,
+      "weight": "250 gms",
+      "price": 280
+    },
+    {
+      "id": 1788600001131,
+      "product_id": 1788600001129,
+      "weight": "500 gms",
+      "price": 532
+    },
+    {
+      "id": 1788600001132,
+      "product_id": 1788600001129,
+      "weight": "1000 gms",
+      "price": 1036
+    },
+    {
+      "id": 1788600001134,
+      "product_id": 1788600001133,
+      "weight": "250 gms",
+      "price": 140
+    },
+    {
+      "id": 1788600001135,
+      "product_id": 1788600001133,
+      "weight": "500 gms",
+      "price": 266
+    },
+    {
+      "id": 1788600001136,
+      "product_id": 1788600001133,
+      "weight": "1000 gms",
+      "price": 518
+    },
+    {
+      "id": 1788600001158,
+      "product_id": 1788600001157,
+      "weight": "400 gms",
+      "price": 55
+    },
+    {
+      "id": 1788600001159,
+      "product_id": 1788600001157,
+      "weight": "800 gms",
+      "price": 99
+    },
+    {
+      "id": 1788600001161,
+      "product_id": 1788600001160,
+      "weight": "400 gms",
+      "price": 75
+    },
+    {
+      "id": 1788600001162,
+      "product_id": 1788600001160,
+      "weight": "800 gms",
+      "price": 135
+    },
+    {
+      "id": 1788600001164,
+      "product_id": 1788600001163,
+      "weight": "400 gms",
+      "price": 120
+    },
+    {
+      "id": 1788600001165,
+      "product_id": 1788600001163,
+      "weight": "800 gms",
+      "price": 216
+    },
+    {
+      "id": 1788600001167,
+      "product_id": 1788600001166,
+      "weight": "400 gms",
+      "price": 90
+    },
+    {
+      "id": 1788600001168,
+      "product_id": 1788600001166,
+      "weight": "800 gms",
+      "price": 162
+    },
+    {
+      "id": 1788600001170,
+      "product_id": 1788600001169,
+      "weight": "400 gms",
+      "price": 65
+    },
+    {
+      "id": 1788600001171,
+      "product_id": 1788600001169,
+      "weight": "800 gms",
+      "price": 117
+    },
+    {
+      "id": 1788600001188,
+      "product_id": 1788600001187,
+      "weight": "200 gms",
+      "price": 180
+    },
+    {
+      "id": 1788600001189,
+      "product_id": 1788600001187,
+      "weight": "500 gms",
+      "price": 414
+    },
+    {
+      "id": 1788600001190,
+      "product_id": 1788600001187,
+      "weight": "1000 gms",
+      "price": 756
+    },
+    {
+      "id": 1788600001192,
+      "product_id": 1788600001191,
+      "weight": "200 gms",
+      "price": 220
+    },
+    {
+      "id": 1788600001193,
+      "product_id": 1788600001191,
+      "weight": "500 gms",
+      "price": 506
+    },
+    {
+      "id": 1788600001194,
+      "product_id": 1788600001191,
+      "weight": "1000 gms",
+      "price": 924
+    },
+    {
+      "id": 1788600001196,
+      "product_id": 1788600001195,
+      "weight": "200 gms",
+      "price": 280
+    },
+    {
+      "id": 1788600001197,
+      "product_id": 1788600001195,
+      "weight": "500 gms",
+      "price": 644
+    },
+    {
+      "id": 1788600001198,
+      "product_id": 1788600001195,
+      "weight": "1000 gms",
+      "price": 1176
+    },
+    {
+      "id": 1788600001200,
+      "product_id": 1788600001199,
+      "weight": "200 gms",
+      "price": 160
+    },
+    {
+      "id": 1788600001201,
+      "product_id": 1788600001199,
+      "weight": "500 gms",
+      "price": 368
+    },
+    {
+      "id": 1788600001202,
+      "product_id": 1788600001199,
+      "weight": "1000 gms",
+      "price": 672
+    },
+    {
+      "id": 1788600001204,
+      "product_id": 1788600001203,
+      "weight": "200 gms",
+      "price": 200
+    },
+    {
+      "id": 1788600001205,
+      "product_id": 1788600001203,
+      "weight": "500 gms",
+      "price": 460
+    },
+    {
+      "id": 1788600001206,
+      "product_id": 1788600001203,
+      "weight": "1000 gms",
+      "price": 840
+    }
+  ],
+  "cart": [
+    {
+      "id": 1788332135561,
+      "user_id": 1788332134738,
+      "created_at": "2026-09-02T06:55:34.721Z"
+    },
+    {
+      "id": 1788344319967,
+      "user_id": 999,
+      "created_at": "2026-09-02T10:18:39.457Z"
+    }
+  ],
+  "cart_items": [
+    {
+      "id": 1788332226711,
+      "cart_id": 1788332135561,
+      "product_id": 1788330649971,
+      "weight_id": 1788330649648,
+      "quantity": 1
+    },
+    {
+      "id": 1788333169823,
+      "cart_id": 1788332135561,
+      "product_id": 1788330650224,
+      "weight_id": 1788330650309,
+      "quantity": 1
+    },
+    {
+      "id": 1788345321561,
+      "cart_id": 1788344319967,
+      "product_id": 1788330650224,
+      "weight_id": 1788330650238,
+      "quantity": 1
+    }
+  ],
+  "orders": [],
+  "order_items": [],
+  "addresses": [],
+  "coupons": [
+    {
+      "id": 1,
+      "code": "WELCOME10",
+      "description": "10% off first order",
+      "discount_type": "percent",
+      "discount_value": 10,
+      "min_order_amount": 0,
+      "max_discount": 100,
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "code": "SWEET20",
+      "description": "20% off above Rs.500",
+      "discount_type": "percent",
+      "discount_value": 20,
+      "min_order_amount": 500,
+      "max_discount": 200,
+      "is_active": 1
+    }
+  ],
+  "wishlist": [
+    {
+      "id": 1788332197723,
+      "user_id": 1788332134738,
+      "product_id": 1788330649654,
+      "created_at": "2026-09-02T06:56:37.140Z"
+    },
+    {
+      "id": 1788332835785,
+      "user_id": 1788332134738,
+      "product_id": 1788330650224,
+      "created_at": "2026-09-02T07:07:15.668Z"
+    },
+    {
+      "id": 1788332840600,
+      "user_id": 1788332134738,
+      "product_id": 1788330649471,
+      "created_at": "2026-09-02T07:07:20.302Z"
+    }
+  ],
+  "reviews": [],
+  "loyalty_points": [],
+  "loyalty_config": {
+    "earn_rate_per_100": 5
+  }
+}

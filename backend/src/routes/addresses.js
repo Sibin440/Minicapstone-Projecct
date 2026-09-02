@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/addressController');
+const { authenticate } = require('../middleware/auth');
+router.use(authenticate);
+router.get('/', ctrl.getAddresses);
+router.post('/', ctrl.addAddress);
+router.put('/:id', ctrl.updateAddress);
+router.delete('/:id', ctrl.deleteAddress);
+router.patch('/:id/default', ctrl.setDefaultAddress);
+module.exports = router;

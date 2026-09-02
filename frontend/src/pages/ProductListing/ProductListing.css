@@ -1,0 +1,92 @@
+.listing-banner {
+  background: var(--navy);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.listing-banner h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--gold-light);
+  margin-bottom: 0.5rem;
+}
+
+.listing-content-full {
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+
+.listing-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: var(--cream-card);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.toolbar-filter-item select {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-xs);
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-weight: 500;
+  color: var(--text-dark);
+  outline: none;
+  cursor: pointer;
+}
+
+.toolbar-filter-item select:focus {
+  border-color: var(--gold);
+}
+
+.price-slider-inline {
+  width: 110px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.listing-main-full {
+  width: 100%;
+}
+
+.no-products {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: var(--cream-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 800px) {
+  .listing-content {
+    grid-template-columns: 1fr;
+  }
+}

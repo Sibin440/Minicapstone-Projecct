@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables (NEVER commit secrets!)
+.env
+**/.env
+.env.local
+.env.production
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Uploads (user-uploaded files, usually large/not needed in repo)
+backend/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Package lock (optional, keep if you want reproducible installs)
+# package-lock.json

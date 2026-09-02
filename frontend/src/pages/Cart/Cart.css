@@ -1,0 +1,136 @@
+.cart-page {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.cart-page-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.5rem;
+}
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+}
+
+.cart-items-section {
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.cart-table-header {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr 0.5fr;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--navy);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.cart-row {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.cart-col-product {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cart-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+}
+
+.cart-item-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.cart-col-price, .cart-col-total {
+  font-weight: 700;
+}
+
+.cart-actions-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.cart-summary-card {
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  height: fit-content;
+}
+
+.cart-summary-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.discount-row {
+  color: var(--green-badge);
+  font-weight: 600;
+}
+
+.grand-total-row {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.coupon-form {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+}
+
+.coupon-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-size: 0.85rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 850px) {
+  .cart-grid { grid-template-columns: 1fr; }
+  .cart-table-header, .cart-row { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .cart-col-weight, .cart-col-price { display: none; }
+}
