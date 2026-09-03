@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { adminAPI } from '../../services/api';
 
-function BarChart({ data, valueKey, labelKey, color = 'gold' }) {
-  const max = Math.max(...data.map(d => d[valueKey] || 0), 1);
+function BarChart({ data = [], valueKey = 'value', labelKey = 'label', color = 'gold' }) {
+  const safeData = Array.isArray(data) ? data : [];
+  const max = Math.max(...safeData.map(d => Number(d[valueKey]) || 0), 1);
   return (
     <div className="bar-chart">
-      {data.map((d, i) => {
-        const h = Math.round(((d[valueKey] || 0) / max) * 120);
+      {safeData.map((d, i) => {
+        const val = Number(d[valueKey]) || 0;
+        const h = Math.round((val / max) * 120);
         return (
           <div key={i} className="bar-col">
             <div className="bar-spacer" />
             <div
               className={`bar-fill ${color}`}
               style={{ height: `${Math.max(h, 2)}px` }}
-              data-val={typeof d[valueKey] === 'number' && valueKey === 'revenue' ? `₹${d[valueKey].toFixed(0)}` : d[valueKey]}
+              data-val={`₹${val}`}
             />
-            <div className="bar-label">{d[labelKey]}</div>
+            <div className="bar-label">{d[labelKey] || ''}</div>
           </div>
         );
       })}
@@ -114,12 +116,12 @@ export default function AdminDashboard() {
         <div className="admin-chart-card">
           <div className="chart-title">Daily Sales — Last 7 Days</div>
           <div className="chart-sub">Revenue trend for the current week</div>
-          <BarChart data={dailySales} valueKey="revenue" labelKey="label" color="gold" />
+          <BarChart data={dailySales} valueKey="value" labelKey="label" color="gold" />
         </div>
         <div className="admin-chart-card">
           <div className="chart-title">Monthly Revenue — Last 6 Months</div>
           <div className="chart-sub">Month-over-month revenue comparison</div>
-          <BarChart data={monthlyRevenue} valueKey="revenue" labelKey="label" color="navy" />
+          <BarChart data={monthlyRevenue} valueKey="value" labelKey="label" color="navy" />
         </div>
       </div>
 

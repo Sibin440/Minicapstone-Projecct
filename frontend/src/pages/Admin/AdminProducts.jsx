@@ -33,7 +33,7 @@ export default function AdminProducts() {
   const openAdd = () => { setForm({ ...emptyForm, category_id: categories[0]?.id || '' }); setEditing(null); setModal('add'); };
   const openEdit = (p) => {
     setForm({
-      name: p.name, category_id: p.category_id, description: p.description || '',
+      name: p.name, category_id: p.category_id?._id || p.category_id || '', description: p.description || '',
       image_url: p.image_url || '', base_price: p.base_price, discount_percent: p.discount_percent || 0,
       is_bestseller: p.is_bestseller === 1, is_new: p.is_new === 1,
       is_offer: p.is_offer === 1, is_pure_veg: p.is_pure_veg === 1,
@@ -48,7 +48,15 @@ export default function AdminProducts() {
   const save = async () => {
     setSaving(true);
     try {
-      const payload = { ...form, category_id: Number(form.category_id), base_price: Number(form.base_price), discount_percent: Number(form.discount_percent), stock_qty: Number(form.stock_qty), low_stock_threshold: Number(form.low_stock_threshold), weights: form.weights.filter(w => w.weight && w.price).map(w => ({ weight: w.weight, price: Number(w.price) })) };
+      const payload = {
+        ...form,
+        category_id: form.category_id,
+        base_price: Number(form.base_price),
+        discount_percent: Number(form.discount_percent || 0),
+        stock_qty: Number(form.stock_qty || 30),
+        low_stock_threshold: Number(form.low_stock_threshold || 10),
+        weights: form.weights.filter(w => w.weight && w.price !== '').map(w => ({ weight: w.weight, price: Number(w.price) }))
+      };
       if (modal === 'add') await adminAPI.createProduct(payload);
       else await adminAPI.updateProduct(editing.id, payload);
       setModal(null);

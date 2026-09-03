@@ -1,42 +1,34 @@
-const { getDb } = require('../models/db');
+const Product = require('../models/Product');
 
-exports.getWishlist = (req, res) => {
-  const db = getDb();
-  const items = db.prepare(`
-    SELECT w.id, w.created_at, p.*, c.name as category_name
-    FROM wishlist w
-    JOIN products p ON w.product_id = p.id
-    JOIN categories c ON p.category_id = c.id
-    WHERE w.user_id = ? AND p.is_active = 1
-    ORDER BY w.created_at DESC
-  `).all(req.user.id);
-  items.forEach(p => {
-    p.weights = db.prepare('SELECT * FROM product_weights WHERE product_id = ? ORDER BY price ASC').all(p.id);
-  });
-  res.json({ success: true, items });
-};
+// Simple wishlist stored per user in a dedicated model
+const mongoose = require('mongoose');
+const WishlistSchema = new mongoose.Schema({
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+}, { timestamps: true });
+const Wishlist = mongoose.models.Wishlist || mongoose.model('Wishlist', WishlistSchema);
 
-exports.addToWishlist = (req, res) => {
-  const db = getDb();
-  const { product_id } = req.body;
-  const product = db.prepare('SELECT id FROM products WHERE id = ? AND is_active = 1').get(product_id);
-  if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+exports.getWishlist = async (req, res) => {
   try {
-    db.prepare('INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)').run(req.user.id, product_id);
-    res.json({ success: true, message: 'Added to wishlist' });
-  } catch (e) {
-    res.json({ success: true, message: 'Already in wishlist' });
+    const items = await Wishlist.find({ user_id: req.user.id }).populate('product_id').lean();
+    const products = items.map(w => ({ ...w.product_id, id: w.product_id?._id })).filter(Boolean);
+    res.json({ success: true, wishlist: products, count: products.length });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
-exports.removeFromWishlist = (req, res) => {
-  const db = getDb();
-  db.prepare('DELETE FROM wishlist WHERE user_id = ? AND product_id = ?').run(req.user.id, req.params.productId);
-  res.json({ success: true, message: 'Removed from wishlist' });
-};
-
-exports.checkWishlist = (req, res) => {
-  const db = getDb();
-  const item = db.prepare('SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?').get(req.user.id, req.params.productId);
-  res.json({ success: true, in_wishlist: !!item });
+exports.toggleWishlist = async (req, res) => {
+  try {
+    const { product_id } = req.body;
+    const existing = await Wishlist.findOne({ user_id: req.user.id, product_id });
+    if (existing) {
+      await existing.deleteOne();
+      return res.json({ success: true, action: 'removed' });
+    }
+    await Wishlist.create({ user_id: req.user.id, product_id });
+    res.json({ success: true, action: 'added' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 };

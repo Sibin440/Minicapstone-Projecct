@@ -1,85 +1,85 @@
-const { getDb } = require('../models/db');
+const Cart = require('../models/Cart');
+const Product = require('../models/Product');
 
-function getOrCreateCart(db, userId) {
-  let cart = db.prepare('SELECT * FROM cart WHERE user_id = ?').get(userId);
-  if (!cart) {
-    const r = db.prepare('INSERT INTO cart (user_id) VALUES (?)').run(userId);
-    cart = db.prepare('SELECT * FROM cart WHERE id = ?').get(r.lastInsertRowid);
+exports.getCart = async (req, res) => {
+  try {
+    let cart = await Cart.findOne({ user_id: req.user.id });
+    if (!cart) cart = await Cart.create({ user_id: req.user.id, items: [] });
+    const subtotal = cart.items.reduce((s, i) => s + i.total_price, 0);
+    res.json({ success: true, cart: { id: cart._id, items: cart.items.map(i => ({ ...i.toObject(), id: i._id })), subtotal, item_count: cart.items.reduce((s, i) => s + i.quantity, 0) } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  return cart;
-}
-
-function getCartItems(db, cartId) {
-  return db.prepare(`
-    SELECT ci.id, ci.quantity, ci.product_id, ci.weight_id,
-      p.name, p.image_url, p.is_pure_veg, p.discount_percent,
-      pw.weight, pw.price as unit_price,
-      (pw.price * ci.quantity) as total_price
-    FROM cart_items ci
-    JOIN products p ON ci.product_id = p.id
-    JOIN product_weights pw ON ci.weight_id = pw.id
-    WHERE ci.cart_id = ?
-  `).all(cartId);
-}
-
-exports.getCart = (req, res) => {
-  const db = getDb();
-  const cart = getOrCreateCart(db, req.user.id);
-  const items = getCartItems(db, cart.id);
-  const subtotal = items.reduce((sum, i) => sum + i.total_price, 0);
-  res.json({ success: true, cart: { id: cart.id, items, subtotal, item_count: items.reduce((s, i) => s + i.quantity, 0) } });
 };
 
-exports.addToCart = (req, res) => {
-  const db = getDb();
-  const { product_id, weight_id, quantity = 1 } = req.body;
-  if (!product_id || !weight_id) return res.status(400).json({ success: false, message: 'product_id and weight_id required' });
-  const product = db.prepare('SELECT id FROM products WHERE id = ? AND is_active = 1').get(product_id);
-  if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
-  const weight = db.prepare('SELECT id FROM product_weights WHERE id = ? AND product_id = ?').get(weight_id, product_id);
-  if (!weight) return res.status(400).json({ success: false, message: 'Invalid weight option' });
-  const cart = getOrCreateCart(db, req.user.id);
-  const existing = db.prepare('SELECT * FROM cart_items WHERE cart_id = ? AND product_id = ? AND weight_id = ?').get(cart.id, product_id, weight_id);
-  if (existing) {
-    db.prepare('UPDATE cart_items SET quantity = quantity + ? WHERE id = ?').run(quantity, existing.id);
-  } else {
-    db.prepare('INSERT INTO cart_items (cart_id, product_id, weight_id, quantity) VALUES (?, ?, ?, ?)').run(cart.id, product_id, weight_id, quantity);
+exports.addToCart = async (req, res) => {
+  try {
+    const { product_id, weight_id, quantity = 1 } = req.body;
+    const product = await Product.findById(product_id);
+    if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+
+    const weightObj = product.weights.id(weight_id) || product.weights[0];
+    if (!weightObj) return res.status(400).json({ success: false, message: 'Invalid weight' });
+
+    let cart = await Cart.findOne({ user_id: req.user.id });
+    if (!cart) cart = await Cart.create({ user_id: req.user.id, items: [] });
+
+    const existingIdx = cart.items.findIndex(i => i.product_id.toString() === product_id && i.weight_id === weight_id);
+    if (existingIdx > -1) {
+      cart.items[existingIdx].quantity += quantity;
+      cart.items[existingIdx].total_price = cart.items[existingIdx].unit_price * cart.items[existingIdx].quantity;
+    } else {
+      cart.items.push({ product_id, weight_id, name: product.name, image_url: product.image_url, weight: weightObj.weight, unit_price: weightObj.price, quantity, total_price: weightObj.price * quantity });
+    }
+    await cart.save();
+    const subtotal = cart.items.reduce((s, i) => s + i.total_price, 0);
+    res.json({ success: true, cart: { id: cart._id, items: cart.items.map(i => ({ ...i.toObject(), id: i._id })), subtotal, item_count: cart.items.reduce((s, i) => s + i.quantity, 0) } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  const items = getCartItems(db, cart.id);
-  const subtotal = items.reduce((sum, i) => sum + i.total_price, 0);
-  res.json({ success: true, message: 'Added to cart', cart: { id: cart.id, items, subtotal, item_count: items.reduce((s, i) => s + i.quantity, 0) } });
 };
 
-exports.updateCartItem = (req, res) => {
-  const db = getDb();
-  const { quantity } = req.body;
-  const cart = getOrCreateCart(db, req.user.id);
-  const item = db.prepare('SELECT * FROM cart_items WHERE id = ? AND cart_id = ?').get(req.params.itemId, cart.id);
-  if (!item) return res.status(404).json({ success: false, message: 'Cart item not found' });
-  if (quantity <= 0) {
-    db.prepare('DELETE FROM cart_items WHERE id = ?').run(item.id);
-  } else {
-    db.prepare('UPDATE cart_items SET quantity = ? WHERE id = ?').run(quantity, item.id);
+exports.updateCartItem = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const cart = await Cart.findOne({ user_id: req.user.id });
+    if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
+    const item = cart.items.id(req.params.itemId);
+    if (!item) return res.status(404).json({ success: false, message: 'Cart item not found' });
+    if (quantity <= 0) {
+      item.deleteOne();
+    } else {
+      item.quantity = quantity;
+      item.total_price = item.unit_price * quantity;
+    }
+    await cart.save();
+    const subtotal = cart.items.reduce((s, i) => s + i.total_price, 0);
+    res.json({ success: true, cart: { id: cart._id, items: cart.items.map(i => ({ ...i.toObject(), id: i._id })), subtotal, item_count: cart.items.reduce((s, i) => s + i.quantity, 0) } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  const items = getCartItems(db, cart.id);
-  const subtotal = items.reduce((sum, i) => sum + i.total_price, 0);
-  res.json({ success: true, cart: { id: cart.id, items, subtotal, item_count: items.reduce((s, i) => s + i.quantity, 0) } });
 };
 
-exports.removeCartItem = (req, res) => {
-  const db = getDb();
-  const cart = getOrCreateCart(db, req.user.id);
-  const item = db.prepare('SELECT * FROM cart_items WHERE id = ? AND cart_id = ?').get(req.params.itemId, cart.id);
-  if (!item) return res.status(404).json({ success: false, message: 'Cart item not found' });
-  db.prepare('DELETE FROM cart_items WHERE id = ?').run(item.id);
-  const items = getCartItems(db, cart.id);
-  const subtotal = items.reduce((sum, i) => sum + i.total_price, 0);
-  res.json({ success: true, cart: { id: cart.id, items, subtotal, item_count: items.reduce((s, i) => s + i.quantity, 0) } });
+exports.removeCartItem = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user_id: req.user.id });
+    if (!cart) return res.status(404).json({ success: false, message: 'Cart not found' });
+    const item = cart.items.id(req.params.itemId);
+    if (!item) return res.status(404).json({ success: false, message: 'Cart item not found' });
+    item.deleteOne();
+    await cart.save();
+    const subtotal = cart.items.reduce((s, i) => s + i.total_price, 0);
+    res.json({ success: true, cart: { id: cart._id, items: cart.items.map(i => ({ ...i.toObject(), id: i._id })), subtotal, item_count: cart.items.reduce((s, i) => s + i.quantity, 0) } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 };
 
-exports.clearCart = (req, res) => {
-  const db = getDb();
-  const cart = getOrCreateCart(db, req.user.id);
-  db.prepare('DELETE FROM cart_items WHERE cart_id = ?').run(cart.id);
-  res.json({ success: true, message: 'Cart cleared' });
+exports.clearCart = async (req, res) => {
+  try {
+    await Cart.findOneAndUpdate({ user_id: req.user.id }, { items: [] });
+    res.json({ success: true, message: 'Cart cleared' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 };

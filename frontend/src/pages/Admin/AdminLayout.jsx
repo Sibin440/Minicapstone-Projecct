@@ -4,14 +4,14 @@ import { useAuth } from '../../context/AuthContext';
 import './Admin.css';
 
 const NAV_ITEMS = [
-  { to: '/admin', label: 'Dashboard', icon: '📊', end: true },
-  { to: '/admin/products', label: 'Products', icon: '🧁' },
-  { to: '/admin/orders', label: 'Orders', icon: '📦' },
-  { to: '/admin/customers', label: 'Customers', icon: '👥' },
-  { to: '/admin/inventory', label: 'Inventory', icon: '🏭' },
-  { to: '/admin/loyalty', label: 'Loyalty Points', icon: '🪙' },
-  { to: '/admin/analytics', label: 'Sales Analytics', icon: '📈' },
-  { to: '/admin/prediction', label: 'Sales Prediction', icon: '🔮' },
+  { to: '/admin', label: 'Dashboard', end: true },
+  { to: '/admin/products', label: 'Products' },
+  { to: '/admin/orders', label: 'Orders' },
+  { to: '/admin/customers', label: 'Customers' },
+  { to: '/admin/inventory', label: 'Inventory' },
+  { to: '/admin/loyalty', label: 'Loyalty Points' },
+  { to: '/admin/analytics', label: 'Sales Analytics' },
+  { to: '/admin/prediction', label: 'Sales Prediction' },
 ];
 
 const PAGE_TITLES = {
@@ -59,7 +59,6 @@ export default function AdminLayout() {
               end={item.end}
               className={({ isActive }) => `admin-nav-item${isActive ? ' active' : ''}`}
             >
-              <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
             </NavLink>
           ))}
@@ -67,7 +66,6 @@ export default function AdminLayout() {
 
         <div className="admin-sidebar-footer">
           <button className="admin-logout-btn" onClick={handleLogout}>
-            <span className="nav-icon">🚪</span>
             <span>Logout</span>
           </button>
         </div>
