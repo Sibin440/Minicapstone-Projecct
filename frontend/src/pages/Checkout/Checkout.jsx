@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { orderAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import './Checkout.css';
+
+const MIN_ORDER_AMOUNT = 400;
 
 export default function Checkout() {
   const { cart, clearCart } = useCart();
   const { addToast } = useToast();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,13 +21,38 @@ export default function Checkout() {
   const [deliverySlot, setDeliverySlot] = useState('Morning (8 AM - 12 PM)');
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [loading, setLoading] = useState(false);
+  const [loyaltyOffer, setLoyaltyOffer] = useState(null);
 
   const couponCode = location.state?.coupon_code || '';
+
+  const subtotal = cart.subtotal || 0;
+  const isBelowMinimum = subtotal < MIN_ORDER_AMOUNT;
+  const amountNeeded = MIN_ORDER_AMOUNT - subtotal;
+
+  // Compute discount from loyalty offer (auto-applied) or coupon
+  const loyaltyDiscount = loyaltyOffer?.coupon
+    ? Math.round((subtotal * loyaltyOffer.discount) / 100)
+    : 0;
+  const discountedSubtotal = subtotal - loyaltyDiscount;
+  const deliveryCharge = discountedSubtotal >= 500 ? 0 : 50;
+  const total = discountedSubtotal + deliveryCharge;
+
+  // Fetch loyalty offer for logged-in users
+  useEffect(() => {
+    if (!user) return;
+    orderAPI.getLoyaltyOffer()
+      .then(data => setLoyaltyOffer(data.offer))
+      .catch(() => {});
+  }, [user]);
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!address.name || !address.phone || !address.address_line1 || !address.pincode) {
       addToast('Please fill all required address fields', 'error');
+      return;
+    }
+    if (isBelowMinimum) {
+      addToast(`Minimum order amount is ₹${MIN_ORDER_AMOUNT}. Add ₹${amountNeeded} more to proceed.`, 'error');
       return;
     }
 
@@ -33,8 +62,12 @@ export default function Checkout() {
         address_id: null,
         delivery_slot: deliverySlot,
         payment_method: paymentMethod,
-        coupon_code: couponCode
+        coupon_code: couponCode,
       });
+
+      if (res.loyalty_offer_msg) {
+        addToast(res.loyalty_offer_msg, 'success');
+      }
       addToast('🎉 Order placed successfully!', 'success');
       clearCart();
       navigate('/my-orders');
@@ -48,6 +81,40 @@ export default function Checkout() {
   return (
     <div className="checkout-page page-enter container">
       <h1 className="checkout-title">Checkout</h1>
+
+      {/* ── Minimum Order Banner ── */}
+      {isBelowMinimum && (
+        <div className="checkout-alert checkout-alert--warning">
+          <span>🚚</span>
+          <div>
+            <strong>Minimum ₹{MIN_ORDER_AMOUNT} required for online delivery</strong>
+            <p>Add items worth ₹{amountNeeded.toFixed(2)} more to place your order.</p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Loyalty Offer Banner ── */}
+      {loyaltyOffer?.coupon && (
+        <div className="checkout-alert checkout-alert--success">
+          <span>🎁</span>
+          <div>
+            <strong>{loyaltyOffer.label}</strong>
+            <p>
+              {loyaltyOffer.description} — Coupon <code>{loyaltyOffer.coupon}</code> will be auto-applied!
+              You've placed <strong>{loyaltyOffer.orders_placed}</strong> orders with us. Thank you! 🙏
+            </p>
+          </div>
+        </div>
+      )}
+      {loyaltyOffer && !loyaltyOffer.coupon && (
+        <div className="checkout-alert checkout-alert--info">
+          <span>⭐</span>
+          <div>
+            <strong>Earn Loyalty Rewards!</strong>
+            <p>{loyaltyOffer.description}</p>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handlePlaceOrder} className="checkout-grid">
         <div className="checkout-form-section">
@@ -125,16 +192,54 @@ export default function Checkout() {
             ))}
           </div>
           <hr style={{ margin: '1rem 0', borderColor: 'var(--border)' }} />
+
           <div className="summary-row">
             <span>Subtotal</span>
-            <span>₹{cart.subtotal.toFixed(2)}</span>
+            <span>₹{subtotal.toFixed(2)}</span>
           </div>
+
+          {loyaltyDiscount > 0 && (
+            <div className="summary-row summary-row--discount">
+              <span>🎁 Loyalty Discount ({loyaltyOffer?.discount}%)</span>
+              <span>−₹{loyaltyDiscount.toFixed(2)}</span>
+            </div>
+          )}
+
+          <div className="summary-row">
+            <span>Delivery Charge</span>
+            <span>{deliveryCharge === 0 ? <span className="free-delivery">FREE</span> : `₹${deliveryCharge}`}</span>
+          </div>
+
+          {deliveryCharge === 0 && (
+            <div className="summary-note">🚚 Free delivery on orders above ₹500!</div>
+          )}
+
+          <hr style={{ margin: '1rem 0', borderColor: 'var(--border)' }} />
           <div className="summary-row grand-total-row">
             <span>Total Payable</span>
-            <span>₹{cart.subtotal.toFixed(2)}</span>
+            <span>₹{total.toFixed(2)}</span>
           </div>
-          <button type="submit" className="btn-primary place-order-btn" disabled={loading}>
-            {loading ? 'Placing Order...' : 'Confirm & Place Order →'}
+
+          {/* Minimum order warning */}
+          {isBelowMinimum && (
+            <div className="min-order-bar">
+              <div className="min-order-progress">
+                <div
+                  className="min-order-fill"
+                  style={{ width: `${Math.min((subtotal / MIN_ORDER_AMOUNT) * 100, 100)}%` }}
+                />
+              </div>
+              <p className="min-order-text">Add ₹{amountNeeded.toFixed(2)} more to unlock delivery</p>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn-primary place-order-btn"
+            disabled={loading || isBelowMinimum}
+            title={isBelowMinimum ? `Add ₹${amountNeeded} more to place order` : ''}
+          >
+            {loading ? 'Placing Order...' : isBelowMinimum ? `Add ₹${amountNeeded.toFixed(0)} More` : 'Confirm & Place Order →'}
           </button>
         </div>
       </form>

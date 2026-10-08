@@ -43,9 +43,14 @@ export default function AdminOrders() {
   useEffect(() => { load(); }, [statusFilter]);
 
   const updateStatus = async (orderId, status) => {
+    let otp = '';
+    if (status === 'delivered') {
+      otp = window.prompt('🔐 Enter Customer\'s 4-Digit Delivery OTP to complete delivery:');
+      if (!otp) return; // Cancelled by user
+    }
     setUpdating(orderId);
     try {
-      await adminAPI.updateOrderStatus(orderId, status);
+      await adminAPI.updateOrderStatus(orderId, status, otp);
       load();
       if (selectedOrder?.id === orderId) setSelectedOrder(prev => ({ ...prev, order_status: status }));
     } catch (e) { alert(e.message || 'Update failed'); }
@@ -73,21 +78,36 @@ export default function AdminOrders() {
         <div style={{ overflowX: 'auto' }}>
           <table className="admin-table">
             <thead>
-              <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+              <tr><th>Order ID</th><th>Channel</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th><th>Status</th><th>Actions</th></tr>
             </thead>
             <tbody>
               {orders.length === 0
-                ? <tr><td colSpan="7" className="admin-empty">No orders found</td></tr>
+                ? <tr><td colSpan="8" className="admin-empty">No orders found</td></tr>
                 : orders.map(o => (
                   <tr key={o.id}>
                     <td><strong>#{String(o.id).slice(-6)}</strong></td>
+                    <td>
+                      <span
+                        style={{
+                          fontSize: '0.72rem',
+                          fontWeight: '600',
+                          padding: '3px 8px',
+                          borderRadius: '12px',
+                          background: o.order_type === 'pos' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(59, 130, 246, 0.15)',
+                          color: o.order_type === 'pos' ? '#f59e0b' : '#3b82f6',
+                          border: o.order_type === 'pos' ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid rgba(59, 130, 246, 0.3)',
+                        }}
+                      >
+                        {o.order_type === 'pos' ? '🛒 Shop POS' : '🌐 Website'}
+                      </span>
+                    </td>
                     <td>
                       <div style={{ fontWeight: 600, fontSize: '.87rem' }}>{o.customer_name}</div>
                       <div style={{ fontSize: '.72rem', color: '#6b7a9d' }}>{o.customer_email}</div>
                     </td>
                     <td>{o.items?.length || 0} items</td>
                     <td><strong>₹{(o.total || 0).toFixed(2)}</strong></td>
-                    <td style={{ fontSize: '.78rem', color: '#6b7a9d' }}>{new Date(o.created_at).toLocaleString('en-IN')}</td>
+                    <td style={{ fontSize: '.78rem', color: '#6b7a9d' }}>{new Date(o.createdAt || o.created_at || Date.now()).toLocaleString('en-IN')}</td>
                     <td><span className={`status-pill ${o.order_status}`}>{(o.order_status || 'placed').replace(/_/g, ' ')}</span></td>
                     <td>
                       <div style={{ display: 'flex', gap: 6 }}>
@@ -124,7 +144,7 @@ export default function AdminOrders() {
                 </div>
                 <div>
                   <div style={{ fontSize: '.75rem', color: '#6b7a9d', textTransform: 'uppercase', letterSpacing: '.4px', marginBottom: 4 }}>Placed On</div>
-                  <div style={{ fontWeight: 600 }}>{new Date(selectedOrder.created_at).toLocaleString('en-IN')}</div>
+                  <div style={{ fontWeight: 600 }}>{new Date(selectedOrder.createdAt || selectedOrder.created_at || Date.now()).toLocaleString('en-IN')}</div>
                 </div>
               </div>
 

@@ -26,8 +26,9 @@ export default function AdminProducts() {
 
   const filtered = products.filter(p => {
     const q = search.toLowerCase();
+    const pCatId = p.category_id?._id ? String(p.category_id._id) : String(p.category_id || '');
     return (!q || p.name.toLowerCase().includes(q) || p.category_name?.toLowerCase().includes(q))
-      && (!catFilter || String(p.category_id) === catFilter);
+      && (!catFilter || pCatId === catFilter || String(p.category_name) === catFilter);
   });
 
   const openAdd = () => { setForm({ ...emptyForm, category_id: categories[0]?.id || '' }); setEditing(null); setModal('add'); };
@@ -91,7 +92,11 @@ export default function AdminProducts() {
           <span className="admin-table-title">All Products ({filtered.length})</span>
           <div className="admin-table-actions">
             <div className="admin-search-bar">
-              <span>🔍</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16, stroke: '#6b7a9d', flexShrink: 0 }}>
+                <circle cx="11" cy="11" r="7.5" />
+                <path d="M16.5 16.5L21 21" strokeWidth="2.8" />
+                <path d="M8 8.5A5 5 0 0 1 13 7" strokeWidth="1.8" />
+              </svg>
               <input placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)} />
             </div>
             <select className="admin-filter-select" value={catFilter} onChange={e => setCatFilter(e.target.value)}>
@@ -141,9 +146,16 @@ export default function AdminProducts() {
                       </button>
                     </td>
                     <td>
-                      <div style={{ display: 'flex', gap: 6 }}>
-                        <button className="btn-admin outline sm" onClick={() => openEdit(p)}>✏️ Edit</button>
-                        <button className="btn-admin danger sm" onClick={() => setDeleteConfirm(p)}>🗑️</button>
+                      <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                        <button className="btn-admin outline sm" onClick={() => openEdit(p)}>Edit</button>
+                        <button className="btn-admin danger sm" onClick={() => setDeleteConfirm(p)} title="Delete product" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '6px 8px' }}>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 15, height: 15 }}>
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -234,7 +246,7 @@ export default function AdminProducts() {
         <div className="admin-modal-overlay" onClick={() => setDeleteConfirm(null)}>
           <div className="admin-modal admin-modal-sm" onClick={e => e.stopPropagation()}>
             <div className="admin-modal-header">
-              <span className="admin-modal-title">🗑️ Delete Product</span>
+              <span className="admin-modal-title">Delete Product</span>
               <button className="admin-modal-close" onClick={() => setDeleteConfirm(null)}>✕</button>
             </div>
             <div className="admin-modal-body">

@@ -56,8 +56,27 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 24px 20px 20px;
-  border-bottom: 1.5px solid #e4e8f0;
+  height: 64px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-brand-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #1a2744;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.admin-brand-svg {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
 }
 
 .admin-sidebar-brand .brand-icon {
@@ -1391,4 +1410,124 @@ table.admin-table tbody tr:hover {
   .analytics-kpi-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ══════════════════════════════════════════
+   ─── REPEAT CUSTOMERS SECTION ───
+══════════════════════════════════════════ */
+
+.rc-section {
+  background: #fff;
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-shadow);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.rc-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--admin-border);
+}
+
+.rc-section-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--admin-navy);
+  letter-spacing: .2px;
+}
+
+.rc-section-sub {
+  font-size: .75rem;
+  color: var(--admin-muted);
+  margin-top: 3px;
+}
+
+/* ── Tier Cards Grid ── */
+.rc-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.rc-tier-card {
+  border-radius: 12px;
+  padding: 20px 18px;
+  text-align: center;
+  border: 1.5px solid transparent;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.rc-tier-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(26, 39, 68, .12);
+}
+
+.rc-tier-card.new-bg     { background: #eff6ff; border-color: #93c5fd; }
+.rc-tier-card.loyal5-bg  { background: #f0fdf4; border-color: #86efac; }
+.rc-tier-card.loyal10-bg { background: #fffbeb; border-color: #fcd34d; }
+.rc-tier-card.vip-bg     { background: #fdf4ff; border-color: #d8b4fe; }
+
+.rc-tier-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.rc-tier-count {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--admin-navy);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.rc-tier-label {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--admin-navy);
+  margin-bottom: 6px;
+}
+
+.rc-tier-desc {
+  font-size: .7rem;
+  color: var(--admin-muted);
+  line-height: 1.5;
+}
+
+/* ── Bottom Row: Donut + Table ── */
+.rc-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+/* ── Tier Badges (inline table badges) ── */
+.rc-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: .72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rc-tier-badge.new-cust  { background: #eff6ff; color: #1d4ed8; }
+.rc-tier-badge.loyal5    { background: #f0fdf4; color: #15803d; }
+.rc-tier-badge.loyal10   { background: #fffbeb; color: #b45309; }
+.rc-tier-badge.vip       { background: #fdf4ff; color: #7e22ce; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .rc-tier-grid       { grid-template-columns: repeat(2, 1fr); }
+  .rc-bottom-grid     { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .rc-tier-grid       { grid-template-columns: 1fr 1fr; }
 }

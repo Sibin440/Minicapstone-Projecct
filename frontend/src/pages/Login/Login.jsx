@@ -16,7 +16,7 @@ export function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await login(email, password);
+      const data = await login(email.trim(), password);
       if (data?.user?.role === 'admin') {
         addToast('Welcome, Admin!', 'success');
         navigate('/admin');

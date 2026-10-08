@@ -63,6 +63,14 @@ function DonutChart({ data }) {
   );
 }
 
+// Tier badge helper
+function TierBadge({ orderCount }) {
+  if (orderCount >= 10) return <span className="rc-tier-badge vip">🏆 VIP (15% off)</span>;
+  if (orderCount >= 5)  return <span className="rc-tier-badge loyal10">⭐ Loyal (10% off)</span>;
+  if (orderCount >= 3)  return <span className="rc-tier-badge loyal5">🎁 Repeat (5% off)</span>;
+  return <span className="rc-tier-badge new-cust">🆕 New</span>;
+}
+
 const STATUS_ORDER = ['placed', 'confirmed', 'preparing', 'packed', 'out_for_delivery', 'delivered', 'cancelled'];
 
 export default function AdminDashboard() {
@@ -76,9 +84,18 @@ export default function AdminDashboard() {
   if (loading) return <div className="admin-loading"><div className="admin-spinner" /></div>;
   if (!data) return <div className="admin-empty">Failed to load dashboard data.</div>;
 
-  const { stats, dailySales, monthlyRevenue, statusBreakdown, topProducts, recentOrders, lowStockProducts } = data;
+  const { stats, dailySales, monthlyRevenue, statusBreakdown, topProducts, recentOrders, lowStockProducts, repeatCustomerStats } = data;
+  const rc = repeatCustomerStats || { total: 0, new: 0, loyal5: 0, loyal10: 0, vip: 0, topRepeat: [] };
 
   const donutData = Object.entries(statusBreakdown || {}).map(([k, v]) => ({ label: k, value: v }));
+
+  // Repeat customer tier donut data
+  const rcDonutData = [
+    rc.new     > 0 ? { label: '🆕 New (1 order)',       value: rc.new }     : null,
+    rc.loyal5  > 0 ? { label: '🎁 Repeat (3–4 orders)', value: rc.loyal5 }  : null,
+    rc.loyal10 > 0 ? { label: '⭐ Loyal (5–9 orders)',  value: rc.loyal10 } : null,
+    rc.vip     > 0 ? { label: '🏆 VIP (10+ orders)',    value: rc.vip }     : null,
+  ].filter(Boolean);
 
   return (
     <div>
@@ -103,6 +120,12 @@ export default function AdminDashboard() {
           <span className="stat-icon">👥</span>
           <div className="stat-value">{stats.totalCustomers || 0}</div>
           <div className="stat-label">Total Customers</div>
+        </div>
+        {/* ── NEW: Repeat Customers Stat Card ── */}
+        <div className="admin-stat-card warning">
+          <span className="stat-icon">🔁</span>
+          <div className="stat-value">{stats.totalRepeatCustomers || 0}</div>
+          <div className="stat-label">Repeat Customers</div>
         </div>
         <div className="admin-stat-card danger">
           <span className="stat-icon">⚠️</span>
@@ -132,7 +155,7 @@ export default function AdminDashboard() {
           {donutData.length > 0 ? <DonutChart data={donutData} /> : <div className="admin-empty" style={{ padding: 24 }}>No orders yet</div>}
         </div>
         <div className="admin-chart-card">
-          <div className="chart-title">🏆 Best-Selling Products</div>
+          <div className="chart-title">Best-Selling Products</div>
           <div className="chart-sub">Top 5 products by order quantity</div>
           {(topProducts || []).length === 0
             ? <div className="admin-empty" style={{ padding: 24 }}>No sales data yet</div>
@@ -146,8 +169,104 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      {/* ══════════════════════════════════════════════════
+          ─── REPEAT CUSTOMERS SECTION ───
+      ══════════════════════════════════════════════════ */}
+      <div className="rc-section">
+        <div className="rc-section-header">
+          <div>
+            <div className="rc-section-title">🔁 Repeat Customers Overview</div>
+            <div className="rc-section-sub">Customers segmented by loyalty tier &amp; discount eligibility</div>
+          </div>
+        </div>
+
+        {/* Tier Summary Cards */}
+        <div className="rc-tier-grid">
+          <div className="rc-tier-card new-bg">
+            <div className="rc-tier-icon">🆕</div>
+            <div className="rc-tier-count">{rc.new}</div>
+            <div className="rc-tier-label">New Customers</div>
+            <div className="rc-tier-desc">1 order placed<br/>No discount yet</div>
+          </div>
+          <div className="rc-tier-card loyal5-bg">
+            <div className="rc-tier-icon">🎁</div>
+            <div className="rc-tier-count">{rc.loyal5}</div>
+            <div className="rc-tier-label">Repeat Customers</div>
+            <div className="rc-tier-desc">3–4 orders placed<br/>5% off (LOYAL5)</div>
+          </div>
+          <div className="rc-tier-card loyal10-bg">
+            <div className="rc-tier-icon">⭐</div>
+            <div className="rc-tier-count">{rc.loyal10}</div>
+            <div className="rc-tier-label">Loyal Customers</div>
+            <div className="rc-tier-desc">5–9 orders placed<br/>10% off (LOYAL10)</div>
+          </div>
+          <div className="rc-tier-card vip-bg">
+            <div className="rc-tier-icon">🏆</div>
+            <div className="rc-tier-count">{rc.vip}</div>
+            <div className="rc-tier-label">VIP Customers</div>
+            <div className="rc-tier-desc">10+ orders placed<br/>15% off (LOYAL15)</div>
+          </div>
+        </div>
+
+        {/* Tier Breakdown Chart + Top Repeat Customers Table */}
+        <div className="rc-bottom-grid">
+          {/* Donut — tier distribution */}
+          <div className="admin-chart-card">
+            <div className="chart-title">Customer Tier Distribution</div>
+            <div className="chart-sub">How your customers are segmented by loyalty</div>
+            {rcDonutData.length > 0
+              ? <DonutChart data={rcDonutData} />
+              : <div className="admin-empty" style={{ padding: 24 }}>No customer data yet</div>}
+          </div>
+
+          {/* Top Repeat Customers Table */}
+          <div className="admin-table-card">
+            <div className="admin-table-header">
+              <span className="admin-table-title">Top Repeat Customers</span>
+              <span style={{ fontSize: '.75rem', color: '#6b7a9d' }}>Ranked by order count</span>
+            </div>
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Customer</th>
+                  <th>Orders</th>
+                  <th>Loyalty Tier</th>
+                  <th>Offer Applied</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rc.topRepeat.length === 0 ? (
+                  <tr><td colSpan="5" style={{ textAlign: 'center', color: '#6b7a9d', padding: 24 }}>
+                    No repeat customers yet. Encourage customers to order again!
+                  </td></tr>
+                ) : rc.topRepeat.map((c, i) => (
+                  <tr key={String(c._id)}>
+                    <td>
+                      <div className={`top-product-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}`}
+                        style={{ display: 'inline-flex' }}>{i + 1}</div>
+                    </td>
+                    <td>
+                      <div style={{ fontWeight: 600 }}>{c.name}</div>
+                      <div style={{ fontSize: '.73rem', color: '#6b7a9d' }}>{c.email}</div>
+                    </td>
+                    <td><strong>{c.order_count}</strong> orders</td>
+                    <td><TierBadge orderCount={c.order_count} /></td>
+                    <td style={{ fontWeight: 700, color: '#16a34a' }}>
+                      {c.order_count >= 10 ? 'LOYAL15 (−15%)'
+                        : c.order_count >= 5 ? 'LOYAL10 (−10%)'
+                        : 'LOYAL5 (−5%)'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       {/* ─── Recent Orders & Low Stock ─── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginTop: 24 }}>
         <div className="admin-table-card">
           <div className="admin-table-header">
             <span className="admin-table-title">Recent Orders</span>
@@ -175,10 +294,10 @@ export default function AdminDashboard() {
         </div>
 
         <div className="admin-chart-card">
-          <div className="chart-title">⚠️ Low Stock Alert</div>
+          <div className="chart-title">Low Stock Alert</div>
           <div className="chart-sub">Products needing restock</div>
           {(lowStockProducts || []).length === 0
-            ? <div className="admin-empty" style={{ padding: 24 }}>All items well-stocked ✅</div>
+            ? <div className="admin-empty" style={{ padding: 24 }}>All items well-stocked</div>
             : (lowStockProducts || []).map(p => (
               <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0', borderBottom: '1px solid #e4e8f0' }}>
                 <img

@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import CalendarIcon from '../../components/CalendarIcon';
 import './Admin.css';
 
 const NAV_ITEMS = [
   { to: '/admin', label: 'Dashboard', end: true },
+  { to: '/admin/pos', label: '🛒 POS Billing' },
   { to: '/admin/products', label: 'Products' },
   { to: '/admin/orders', label: 'Orders' },
   { to: '/admin/customers', label: 'Customers' },
@@ -16,6 +18,7 @@ const NAV_ITEMS = [
 
 const PAGE_TITLES = {
   '/admin': { title: 'Dashboard', sub: 'Overview of your bakery operations' },
+  '/admin/pos': { title: 'POS Workstation', sub: 'In-Shop counter sales, stock deduction & rewards' },
   '/admin/products': { title: 'Products', sub: 'Manage your product catalog' },
   '/admin/orders': { title: 'Orders', sub: 'View and manage customer orders' },
   '/admin/customers': { title: 'Customers', sub: 'Customer directory and purchase history' },
@@ -43,7 +46,12 @@ export default function AdminLayout() {
       {/* ─── Sidebar ─── */}
       <aside className="admin-sidebar">
         <div className="admin-sidebar-brand">
-          <img src="/logo.png" alt="SVS Bakery" style={{ width: 44, height: 44, objectFit: 'contain', borderRadius: 6 }} onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }} />
+          <img
+            src="/logo.png"
+            alt="SVS Bakery"
+            style={{ width: 42, height: 42, objectFit: 'contain', borderRadius: 8 }}
+            onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }}
+          />
           <div className="brand-info">
             <div className="brand-name">SVS Bakery</div>
             <div className="brand-sub">Management Console</div>
@@ -51,7 +59,6 @@ export default function AdminLayout() {
         </div>
 
         <nav className="admin-nav">
-          <div className="admin-nav-section">Main Menu</div>
           {NAV_ITEMS.map(item => (
             <NavLink
               key={item.to}
@@ -79,7 +86,9 @@ export default function AdminLayout() {
             <span className="admin-topbar-sub">{pageInfo.sub}</span>
           </div>
           <div className="admin-topbar-right">
-            <span className="admin-topbar-date">📅 {today}</span>
+            <span className="admin-topbar-date" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <CalendarIcon size={18} color="#f59e0b" /> {today}
+            </span>
             <a href="/" target="_blank" className="admin-topbar-view-site">🛍️ View Site</a>
             <div className="admin-avatar">{user?.name?.[0]?.toUpperCase() || 'A'}</div>
           </div>

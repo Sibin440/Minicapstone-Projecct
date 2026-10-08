@@ -29,6 +29,7 @@ export const productAPI = {
   getBySlug: (slug) => api.get(`/products/slug/${slug}`),
   getFeatured: () => api.get('/products/featured'),
   search: (q) => api.get('/products/search', { params: { q } }),
+  chatQuery: (question) => api.post('/products/chat-query', { question }),
 };
 
 export const categoryAPI = {
@@ -47,6 +48,7 @@ export const orderAPI = {
   create: (data) => api.post('/orders', data),
   getAll: () => api.get('/orders'),
   getById: (id) => api.get(`/orders/${id}`),
+  getLoyaltyOffer: () => api.get('/orders/loyalty-offer'),
 };
 
 export const wishlistAPI = {

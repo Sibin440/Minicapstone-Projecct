@@ -39,7 +39,11 @@ export default function AdminCustomers() {
           <span className="admin-table-title">Customers ({filtered.length})</span>
           <div className="admin-table-actions">
             <div className="admin-search-bar">
-              <span>🔍</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16, stroke: '#6b7a9d', flexShrink: 0 }}>
+                <circle cx="11" cy="11" r="7.5" />
+                <path d="M16.5 16.5L21 21" strokeWidth="2.8" />
+                <path d="M8 8.5A5 5 0 0 1 13 7" strokeWidth="1.8" />
+              </svg>
               <input placeholder="Search customers..." value={search} onChange={e => setSearch(e.target.value)} />
             </div>
           </div>

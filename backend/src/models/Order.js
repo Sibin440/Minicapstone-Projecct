@@ -11,7 +11,7 @@ const OrderItemSchema = new mongoose.Schema({
 
 const OrderSchema = new mongoose.Schema({
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  address: { type: Object, required: true },
+  address: { type: Object, default: {} },
   items: [OrderItemSchema],
   coupon_code: { type: String, default: '' },
   subtotal: { type: Number, default: 0 },
@@ -21,7 +21,12 @@ const OrderSchema = new mongoose.Schema({
   payment_method: { type: String, default: 'cod' },
   delivery_slot: { type: String, default: '' },
   notes: { type: String, default: '' },
-  order_status: { type: String, default: 'placed', enum: ['placed', 'confirmed', 'preparing', 'out_for_delivery', 'delivered', 'cancelled'] },
+  order_status: { type: String, default: 'placed', enum: ['placed', 'confirmed', 'preparing', 'packed', 'out_for_delivery', 'delivered', 'cancelled'] },
+  order_type: { type: String, default: 'online', enum: ['online', 'pos'] },
+  payment_status: { type: String, default: 'pending', enum: ['pending', 'paid'] },
+  points_earned: { type: Number, default: 0 },
+  points_redeemed: { type: Number, default: 0 },
+  delivery_otp: { type: String, default: '' },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', OrderSchema);

@@ -29,6 +29,7 @@ import AdminInventory from './pages/Admin/AdminInventory';
 import AdminLoyalty from './pages/Admin/AdminLoyalty';
 import AdminAnalytics from './pages/Admin/AdminAnalytics';
 import AdminPrediction from './pages/Admin/AdminPrediction';
+import AdminPOS from './pages/Admin/AdminPOS';
 
 function AppContent() {
   const location = useLocation();
@@ -40,6 +41,7 @@ function AppContent() {
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="pos" element={<AdminPOS />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="customers" element={<AdminCustomers />} />

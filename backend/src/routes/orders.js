@@ -3,6 +3,7 @@ const ctrl = require('../controllers/orderController');
 const { authenticate } = require('../middleware/auth');
 
 router.use(authenticate);
+router.get('/loyalty-offer', ctrl.getLoyaltyOffer);
 router.get('/', ctrl.getMyOrders);
 router.post('/', ctrl.placeOrder);
 router.get('/:id', ctrl.getOrderById);

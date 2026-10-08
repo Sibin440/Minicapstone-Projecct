@@ -47,7 +47,6 @@ export default function CategoryGrid({ selectedCategory, onSelectCategory }) {
               />
             <div className="category-info">
               <h3 className="category-name">{cat.name}</h3>
-              <p className="category-count">{cat.product_count} products</p>
             </div>
           </div>
         );

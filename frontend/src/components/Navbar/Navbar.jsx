@@ -88,6 +88,7 @@ export default function Navbar() {
 
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      {/* Top Bar */}
       <div className="navbar-topbar">
         <div className="container topbar-inner">
           <div className="location-selector" ref={locationRef} onClick={() => setLocationOpen(o => !o)}>
@@ -123,27 +124,37 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Main Navbar */}
       <div className="navbar-main">
         <div className="container navbar-main-inner">
+          {/* Logo on Left */}
           <Link to="/" className="navbar-brand">
             <div className="brand-logo">
-              <img src="/logo.png" alt="SVS Bakery" className="custom-brand-logo-img" onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }} />
+              <img
+                src="/logo.png"
+                alt="SVS Bakery"
+                className="custom-brand-logo-img"
+                onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }}
+              />
               <div className="brand-text">
                 <span className="brand-name">SVS Bakery</span>
-                <span className="brand-tagline">Sweets & Snacks</span>
+                <span className="brand-tagline">SWEETS & SNACKS</span>
               </div>
             </div>
           </Link>
 
+          {/* Horizontal Navigation items - All Products FIRST */}
           <nav className="navbar-nav" aria-label="Main navigation">
+            <Link to="/products" className="nav-link">All Products</Link>
             <Link to="/category/sweets" className="nav-link">Sweets</Link>
             <Link to="/category/savouries" className="nav-link">Savouries</Link>
             <Link to="/category/cakes" className="nav-link">Cakes</Link>
             <Link to="/category/snacks" className="nav-link">Snacks</Link>
-            <Link to="/products" className="nav-link">All Products</Link>
+            <Link to="/category/cookies-biscuits" className="nav-link">Cookies</Link>
+            <Link to="/category/breads" className="nav-link">Breads</Link>
           </nav>
 
-          {/* Prominent Always-Visible Search Bar */}
+          {/* Search Input Bar */}
           <form onSubmit={handleSearchSubmit} className="header-search-form" ref={searchRef}>
             <input
               type="text"
@@ -186,6 +197,7 @@ export default function Navbar() {
             )}
           </form>
 
+          {/* Actions */}
           <div className="navbar-actions">
             <div className="user-wrapper" ref={userRef}>
               <button className="nav-icon-btn" onClick={() => setUserMenuOpen(o => !o)} aria-label="User menu">
@@ -239,15 +251,15 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Gold Secondary Bar */}
       <div className="navbar-secondary">
         <div className="container">
           <div className="secondary-links">
             <Link to="/products?tag=festival" className="secondary-link">Festival Pack</Link>
+            <Link to="/products?bestseller=true" className="secondary-link">Best Sellers</Link>
             <Link to="/category/sweets" className="secondary-link">Ready To Cook</Link>
             <Link to="/category/cakes" className="secondary-link">Bakery</Link>
-            <Link to="/category/beverages" className="secondary-link">Coffee & Spices</Link>
             <Link to="/category/cookies-biscuits" className="secondary-link">Cookies</Link>
-            <Link to="/products?bestseller=true" className="secondary-link">Best Sellers</Link>
           </div>
         </div>
       </div>
@@ -255,11 +267,13 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="mobile-menu">
           <Link to="/" className="mobile-link">Home</Link>
+          <Link to="/products" className="mobile-link">All Products</Link>
           <Link to="/category/sweets" className="mobile-link">Sweets</Link>
           <Link to="/category/savouries" className="mobile-link">Savouries</Link>
           <Link to="/category/cakes" className="mobile-link">Cakes</Link>
           <Link to="/category/snacks" className="mobile-link">Snacks</Link>
-          <Link to="/products" className="mobile-link">All Products</Link>
+          <Link to="/category/cookies-biscuits" className="mobile-link">Cookies</Link>
+          <Link to="/category/breads" className="mobile-link">Breads</Link>
           {user ? (
             <>
               <Link to="/my-orders" className="mobile-link">My Orders</Link>

@@ -53,6 +53,7 @@ connectDB().then(async () => {
   app.use('/api/coupons', require('./routes/coupons'));
   app.use('/api/reviews', require('./routes/reviews'));
   app.use('/api/admin', require('./routes/admin'));
+  app.use('/api/pos', require('./routes/posRoutes'));
 
   app.get('/api/health', (req, res) => {
     res.json({ success: true, message: 'SVS Sweets & Bakery API is running 🍬', db: 'MongoDB Atlas' });
