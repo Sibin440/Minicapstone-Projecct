@@ -590,7 +590,7 @@ export default function AdminPOS() {
             
             {/* Header */}
             <div style={{ textAlign: 'center', borderBottom: '2px dashed #000', paddingBottom: '12px', marginBottom: '12px' }}>
-              <h2 style={{ margin: '0 0 4px 0', fontSize: '1.4rem' }}>🍬 SVS SWEETS & BAKERY</h2>
+              <h2 style={{ margin: '0 0 4px 0', fontSize: '1.4rem' }}>🧁 CREAMY BITES</h2>
               <div style={{ fontSize: '0.8rem', color: '#444' }}>Store Counter Invoice</div>
               <div style={{ fontSize: '0.75rem', color: '#666', marginTop: '4px' }}>Date: {new Date(completedOrder.createdAt || Date.now()).toLocaleString()}</div>
               <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginTop: '2px' }}>Order #{completedOrder._id ? completedOrder._id.toString().slice(-6).toUpperCase() : completedOrder.id}</div>
@@ -649,7 +649,7 @@ export default function AdminPOS() {
             )}
 
             <div style={{ textAlign: 'center', marginTop: '16px', fontSize: '0.75rem', color: '#666' }}>
-              Thank you for shopping with SVS Sweets! 🍬<br />Visit Again!
+              Thank you for shopping with Creamy Bites! 🍰<br />Visit Again!
             </div>
 
             {/* Action Buttons */}

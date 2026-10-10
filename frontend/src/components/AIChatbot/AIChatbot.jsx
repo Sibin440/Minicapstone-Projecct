@@ -20,7 +20,7 @@ export default function AIChatbot() {
     {
       id: 1,
       sender: 'bot',
-      text: '👋 Hello! I am Mithai Assistant. Ask me any question about our sweets, cakes, prices, ingredients, or order delivery!',
+      text: '👋 Hello! I am Creamy Bites Assistant. Ask me any question about our sweets, cakes, prices, ingredients, or order delivery!',
       products: []
     }
   ]);
@@ -82,7 +82,7 @@ export default function AIChatbot() {
       <button
         className={`ai-chatbot-toggle ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
-        title="Ask Mithai AI Assistant"
+        title="Ask Creamy Bites AI Assistant"
         aria-label="Open AI Assistant"
       >
         <span className="toggle-icon">🤖</span>
@@ -97,7 +97,7 @@ export default function AIChatbot() {
             <div className="header-info">
               <div className="bot-avatar">🤖</div>
               <div>
-                <h4>Mithai AI Assistant</h4>
+                <h4>Creamy Bites AI Assistant</h4>
                 <span className="online-indicator">
                   <span className="dot"></span> Online • Accurate Q&A
                 </span>

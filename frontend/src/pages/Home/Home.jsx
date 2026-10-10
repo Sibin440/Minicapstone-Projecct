@@ -153,7 +153,7 @@ export default function Home() {
       <section className="why-section">
         <div className="container">
           <div className="section-heading">
-            <h2>Why Choose SVS Sweets & Bakery?</h2>
+            <h2>Why Choose Creamy Bites?</h2>
             <div className="heading-ornament"><span/><div className="diamond"/><span/></div>
           </div>
           <div className="why-grid">

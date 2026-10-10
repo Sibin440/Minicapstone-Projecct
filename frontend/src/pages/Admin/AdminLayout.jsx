@@ -10,6 +10,8 @@ const NAV_ITEMS = [
   { to: '/admin/products', label: 'Products' },
   { to: '/admin/orders', label: 'Orders' },
   { to: '/admin/customers', label: 'Customers' },
+  { to: '/admin/repeated-customers', label: '🔁 Repeated Customers' },
+  { to: '/admin/new-customers', label: '🌱 New Customers' },
   { to: '/admin/inventory', label: 'Inventory' },
   { to: '/admin/loyalty', label: 'Loyalty Points' },
   { to: '/admin/analytics', label: 'Sales Analytics' },
@@ -22,6 +24,8 @@ const PAGE_TITLES = {
   '/admin/products': { title: 'Products', sub: 'Manage your product catalog' },
   '/admin/orders': { title: 'Orders', sub: 'View and manage customer orders' },
   '/admin/customers': { title: 'Customers', sub: 'Customer directory and purchase history' },
+  '/admin/repeated-customers': { title: 'Repeated Customers', sub: 'High-value repeat buyers & exclusive loyalty rewards' },
+  '/admin/new-customers': { title: 'New Customers', sub: 'First-time buyers & welcome special offers' },
   '/admin/inventory': { title: 'Inventory', sub: 'Track and update product stock levels' },
   '/admin/loyalty': { title: 'Loyalty Points', sub: 'Manage rewards and point rules' },
   '/admin/analytics': { title: 'Sales Analytics', sub: 'Revenue trends and performance insights' },
@@ -32,7 +36,7 @@ export default function AdminLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const path = window.location.pathname;
-  const pageInfo = PAGE_TITLES[path] || { title: 'Admin', sub: 'SVS Sweets & Bakery Management' };
+  const pageInfo = PAGE_TITLES[path] || { title: 'Admin', sub: 'Creamy Bites Management' };
 
   const handleLogout = () => {
     logout();
@@ -48,12 +52,12 @@ export default function AdminLayout() {
         <div className="admin-sidebar-brand">
           <img
             src="/logo.png"
-            alt="SVS Bakery"
+            alt="Creamy Bites"
             style={{ width: 42, height: 42, objectFit: 'contain', borderRadius: 8 }}
             onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }}
           />
           <div className="brand-info">
-            <div className="brand-name">SVS Bakery</div>
+            <div className="brand-name">Creamy Bites</div>
             <div className="brand-sub">Management Console</div>
           </div>
         </div>

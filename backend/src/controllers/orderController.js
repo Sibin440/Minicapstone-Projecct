@@ -13,7 +13,7 @@ function buildWhatsAppInfo(order, user) {
   const expectedPoints = Math.floor((order.total || 0) / 100) * 5;
   const otpCode = order.delivery_otp || 'N/A';
 
-  const text = `🍬 *SVS SWEETS & BAKERY*
+  const text = `🧁 *CREAMY BITES*
 Hi ${customerName}! Thank you for placing your online order with us! 🎉
 
 📦 *Order ID:* #${orderNum}
@@ -21,7 +21,7 @@ Hi ${customerName}! Thank you for placing your online order with us! 🎉
 🔐 *Delivery OTP:* ${otpCode} (Give this 4-digit OTP to delivery executive)
 ⭐ *Reward Points:* You will earn +${expectedPoints} points on order delivery!
 
-Thank you for shopping with SVS Sweets & Bakery! 🍬`;
+Thank you for shopping with Creamy Bites! 🍰`;
 
   const encodedText = encodeURIComponent(text);
   const whatsappUrl = cleanPhone
@@ -36,11 +36,11 @@ const MIN_DELIVERY_AMOUNT = 400;
 
 exports.placeOrder = async (req, res) => {
   try {
-    const { address_id, payment_method = 'cod', delivery_slot = '', notes = '', coupon_code = '' } = req.body;
+    const { address_id, address: directAddress, payment_method = 'cod', delivery_slot = '', notes = '', coupon_code = '' } = req.body;
     const cart = await Cart.findOne({ user_id: req.user.id });
     if (!cart || cart.items.length === 0) return res.status(400).json({ success: false, message: 'Cart is empty' });
 
-    let address = {};
+    let address = directAddress && typeof directAddress === 'object' ? directAddress : {};
     if (address_id) {
       const addr = await Address.findById(address_id);
       if (addr) address = addr.toObject();
@@ -79,6 +79,17 @@ exports.placeOrder = async (req, res) => {
       });
     }
 
+    // ─── Location Restriction: Chennai only ───
+    const ALLOWED_CITY = 'chennai';
+    const enteredCity = (address.city || '').trim().toLowerCase();
+    if (enteredCity !== ALLOWED_CITY) {
+      return res.status(400).json({
+        success: false,
+        message: `Sorry! We currently deliver only within Chennai. Your entered city "${address.city}" is not serviceable.`,
+        allowed_city: 'Chennai',
+      });
+    }
+
 
     // ─── Feature 2: Repeat Customer Offers ───
     // Check how many past orders this user has placed
@@ -112,7 +123,7 @@ exports.placeOrder = async (req, res) => {
       discount_amount = Math.round((subtotal * 10) / 100);
       applied_coupon = 'LOYAL10';
       loyalty_offer_msg = '⭐ Loyal Customer: 10% loyalty discount applied!';
-    } else if (pastOrderCount >= 3) {
+    } else if (pastOrderCount >= 2) {
       // First repeat milestone: 5% off
       discount_amount = Math.round((subtotal * 5) / 100);
       applied_coupon = 'LOYAL5';
@@ -173,10 +184,10 @@ exports.getLoyaltyOffer = async (req, res) => {
       offer = { coupon: 'LOYAL15', discount: 15, type: 'percent', label: '🏆 VIP Customer Offer', description: '15% off on your order!', orders_placed: pastOrderCount };
     } else if (pastOrderCount >= 5) {
       offer = { coupon: 'LOYAL10', discount: 10, type: 'percent', label: '⭐ Loyal Customer Offer', description: '10% off on your order!', orders_placed: pastOrderCount };
-    } else if (pastOrderCount >= 3) {
+    } else if (pastOrderCount >= 2) {
       offer = { coupon: 'LOYAL5', discount: 5, type: 'percent', label: '🎁 Repeat Customer Offer', description: '5% off on your order!', orders_placed: pastOrderCount };
     } else {
-      const ordersNeeded = 3 - pastOrderCount;
+      const ordersNeeded = 2 - pastOrderCount;
       offer = {
         coupon: null,
         discount: 0,
@@ -184,7 +195,7 @@ exports.getLoyaltyOffer = async (req, res) => {
         label: null,
         description: `Place ${ordersNeeded} more order${ordersNeeded > 1 ? 's' : ''} to unlock your first loyalty discount!`,
         orders_placed: pastOrderCount,
-        next_milestone: 3,
+        next_milestone: 2,
       };
     }
 

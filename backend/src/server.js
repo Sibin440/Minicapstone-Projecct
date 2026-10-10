@@ -56,7 +56,7 @@ connectDB().then(async () => {
   app.use('/api/pos', require('./routes/posRoutes'));
 
   app.get('/api/health', (req, res) => {
-    res.json({ success: true, message: 'SVS Sweets & Bakery API is running 🍬', db: 'MongoDB Atlas' });
+    res.json({ success: true, message: 'Creamy Bites API is running 🍬', db: 'MongoDB Atlas' });
   });
 
   app.use((req, res) => {
@@ -69,7 +69,7 @@ connectDB().then(async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`\n🍬 SVS Sweets & Bakery Backend running on http://localhost:${PORT}`);
+    console.log(`\n🍬 Creamy Bites Backend running on http://localhost:${PORT}`);
     console.log(`📦 Environment: ${process.env.NODE_ENV}`);
     console.log(`🍃 Database: MongoDB Atlas\n`);
   });

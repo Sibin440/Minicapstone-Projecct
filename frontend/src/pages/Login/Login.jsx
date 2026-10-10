@@ -36,12 +36,12 @@ export function Login() {
     <div className="auth-page page-enter container">
       <div className="auth-card">
         <h2>Customer Login</h2>
-        <p className="auth-sub">Access your SVS Sweets & Bakery account</p>
+        <p className="auth-sub">Access your Creamy Bites account</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email Address</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="demo@mithaimandir.com" />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="user@creamybites.com" />
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -85,7 +85,7 @@ export function Register() {
     <div className="auth-page page-enter container">
       <div className="auth-card">
         <h2>Register Account</h2>
-        <p className="auth-sub">Join Mithai Mandir for fast ordering & rewards</p>
+        <p className="auth-sub">Join Creamy Bites for fast ordering &amp; rewards</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

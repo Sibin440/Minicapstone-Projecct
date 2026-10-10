@@ -25,6 +25,8 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminProducts from './pages/Admin/AdminProducts';
 import AdminOrders from './pages/Admin/AdminOrders';
 import AdminCustomers from './pages/Admin/AdminCustomers';
+import AdminRepeatedCustomers from './pages/Admin/AdminRepeatedCustomers';
+import AdminNewCustomers from './pages/Admin/AdminNewCustomers';
 import AdminInventory from './pages/Admin/AdminInventory';
 import AdminLoyalty from './pages/Admin/AdminLoyalty';
 import AdminAnalytics from './pages/Admin/AdminAnalytics';
@@ -45,6 +47,8 @@ function AppContent() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="customers" element={<AdminCustomers />} />
+            <Route path="repeated-customers" element={<AdminRepeatedCustomers />} />
+            <Route path="new-customers" element={<AdminNewCustomers />} />
             <Route path="inventory" element={<AdminInventory />} />
             <Route path="loyalty" element={<AdminLoyalty />} />
             <Route path="analytics" element={<AdminAnalytics />} />

@@ -223,7 +223,7 @@ exports.chatQuery = async (req, res) => {
     if (qLower.includes('loyalty') || qLower.includes('point') || qLower.includes('reward')) {
       return res.json({
         success: true,
-        answer: '🎁 **Mithai Mandir Loyalty Program**:\n• You earn **5% cashback** in reward points on every completed order.\n• 1 Reward Point = ₹1.\n• You can redeem your points instantly during checkout on your next purchase!',
+        answer: '🎁 **Creamy Bites Loyalty Program**:\n• You earn **5% cashback** in reward points on every completed order.\n• 1 Reward Point = ₹1.\n• You can redeem your points instantly during checkout on your next purchase!',
         products: []
       });
     }
@@ -231,7 +231,7 @@ exports.chatQuery = async (req, res) => {
     if (qLower.includes('delivery') || qLower.includes('ship') || qLower.includes('location') || qLower.includes('time')) {
       return res.json({
         success: true,
-        answer: '🚚 **Delivery Information**:\n• We deliver fresh bakery items and traditional sweets to Mumbai, Delhi, Bengaluru, Chennai, Hyderabad, Pune, and Kolkata.\n• Standard delivery time is 24-48 hours with temperature-controlled packaging.',
+        answer: '🚚 **Delivery Information**:\n• We deliver fresh bakery items and delicious treats across Chennai.\n• Standard delivery time is within hours with fresh temperature-controlled packaging.',
         products: []
       });
     }
@@ -240,7 +240,7 @@ exports.chatQuery = async (req, res) => {
       const healthyProducts = await smartQuerySearch('biscuits bread dry fruit sweet');
       return res.json({
         success: true,
-        answer: '🌱 All sweets and bakery products at Mithai Mandir are **100% Pure Vegetarian & Eggless**! For lower sugar options, check out our wheat biscuits and artisan sourdough breads below.',
+        answer: '🌱 All sweets and bakery products at Creamy Bites are **100% Pure Vegetarian & Eggless**! For lower sugar options, check out our wheat biscuits and artisan sourdough breads below.',
         products: healthyProducts.slice(0, 4)
       });
     }

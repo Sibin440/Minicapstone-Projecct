@@ -6,7 +6,18 @@ import { useWishlist } from '../../context/WishlistContext';
 import { productAPI, adminAPI } from '../../services/api';
 import './Navbar.css';
 
-const LOCATIONS = ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Hyderabad', 'Pune', 'Kolkata'];
+const CITIES = [
+  { name: 'Chennai', state: 'Tamil Nadu', available: true, tag: '⚡ Delivering Now' },
+  { name: 'Tambaram, Chennai', state: 'Tamil Nadu', available: true, tag: '⚡ Delivering Now' },
+  { name: 'Velachery, Chennai', state: 'Tamil Nadu', available: true, tag: '⚡ Delivering Now' },
+  { name: 'Anna Nagar, Chennai', state: 'Tamil Nadu', available: true, tag: '⚡ Delivering Now' },
+  { name: 'Coimbatore', state: 'Tamil Nadu', available: false, tag: 'Coming Soon' },
+  { name: 'Madurai', state: 'Tamil Nadu', available: false, tag: 'Coming Soon' },
+  { name: 'Bengaluru', state: 'Karnataka', available: false, tag: 'Coming Soon' },
+  { name: 'Hyderabad', state: 'Telangana', available: false, tag: 'Coming Soon' },
+  { name: 'Mumbai', state: 'Maharashtra', available: false, tag: 'Coming Soon' },
+  { name: 'Delhi', state: 'Delhi', available: false, tag: 'Coming Soon' },
+];
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -14,8 +25,12 @@ export default function Navbar() {
   const { wishlistCount } = useWishlist();
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedLocation, setSelectedLocation] = useState('Select Location');
+
+  const [selectedLocation, setSelectedLocation] = useState(() => {
+    return localStorage.getItem('svs_delivery_location') || 'Chennai';
+  });
   const [locationOpen, setLocationOpen] = useState(false);
+  const [citySearch, setCitySearch] = useState('');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -24,9 +39,12 @@ export default function Navbar() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [rewardPoints, setRewardPoints] = useState(0);
+
   const searchRef = useRef(null);
   const userRef = useRef(null);
   const locationRef = useRef(null);
+
+  const isLocationAvailable = selectedLocation.toLowerCase().includes('chennai');
 
   useEffect(() => {
     if (!user) { setRewardPoints(0); return; }
@@ -45,6 +63,7 @@ export default function Navbar() {
     setMobileOpen(false);
     setUserMenuOpen(false);
     setSearchOpen(false);
+    setLocationOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -70,6 +89,13 @@ export default function Navbar() {
     return () => clearTimeout(t);
   }, [searchQuery]);
 
+  const handleSelectCity = (cityName) => {
+    setSelectedLocation(cityName);
+    localStorage.setItem('svs_delivery_location', cityName);
+    setLocationOpen(false);
+    setCitySearch('');
+  };
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -86,45 +112,121 @@ export default function Navbar() {
     navigate('/');
   };
 
+  const filteredCities = CITIES.filter(c =>
+    c.name.toLowerCase().includes(citySearch.toLowerCase()) ||
+    c.state.toLowerCase().includes(citySearch.toLowerCase())
+  );
+
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      {/* Top Bar */}
+      {/* ── Top Bar: Location & Delivery Availability ── */}
       <div className="navbar-topbar">
         <div className="container topbar-inner">
-          <div className="location-selector" ref={locationRef} onClick={() => setLocationOpen(o => !o)}>
-            <svg className="nav-svg-icon location-pin-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <span className="location-text">{selectedLocation}</span>
-            <span className={`location-chevron ${locationOpen ? 'open' : ''}`}>▾</span>
+          {/* Location Selector */}
+          <div className="location-selector-wrap" ref={locationRef}>
+            <div
+              className={`location-selector-btn ${isLocationAvailable ? 'avail' : 'unavail'}`}
+              onClick={() => setLocationOpen(o => !o)}
+            >
+              <svg className="nav-svg-icon location-pin-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <div className="loc-label-group">
+                <span className="loc-prefix">Deliver to:</span>
+                <span className="location-text">{selectedLocation}</span>
+              </div>
+
+              {/* Availability Indicator Badge */}
+              <span className={`loc-avail-badge ${isLocationAvailable ? 'available' : 'unavailable'}`}>
+                {isLocationAvailable ? (
+                  <>
+                    <span className="loc-pulse-dot"></span>
+                    <span>Available</span>
+                  </>
+                ) : (
+                  <span>🚫 Chennai Only</span>
+                )}
+              </span>
+
+              <span className={`location-chevron ${locationOpen ? 'open' : ''}`}>▾</span>
+            </div>
+
+            {/* Dropdown Location Picker */}
             {locationOpen && (
-              <div className="location-dropdown">
-                <p className="location-dropdown-title">Select Your City</p>
-                {LOCATIONS.map(loc => (
-                  <button key={loc} className={`location-option ${selectedLocation === loc ? 'active' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); setSelectedLocation(loc); setLocationOpen(false); }}>
-                    {loc}
-                  </button>
-                ))}
+              <div className="location-dropdown-panel">
+                <div className="loc-drop-header">
+                  <strong>📍 Check Delivery Availability</strong>
+                  <p>Online delivery is currently live across <strong>Chennai</strong>.</p>
+                </div>
+
+                <div className="loc-search-box">
+                  <input
+                    type="text"
+                    placeholder="Search city or area..."
+                    value={citySearch}
+                    onChange={e => setCitySearch(e.target.value)}
+                    autoFocus
+                  />
+                </div>
+
+                <div className="loc-options-list">
+                  {filteredCities.map(city => (
+                    <button
+                      key={city.name}
+                      type="button"
+                      className={`loc-option-row ${selectedLocation === city.name ? 'active' : ''}`}
+                      onClick={() => handleSelectCity(city.name)}
+                    >
+                      <div className="loc-opt-info">
+                        <span className="loc-opt-name">{city.name}</span>
+                        <span className="loc-opt-state">{city.state}</span>
+                      </div>
+                      <span className={`loc-status-pill ${city.available ? 'green' : 'gray'}`}>
+                        {city.tag}
+                      </span>
+                    </button>
+                  ))}
+
+                  {filteredCities.length === 0 && (
+                    <div className="loc-custom-pick">
+                      <p>City "{citySearch}" not in list.</p>
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        style={{ padding: '6px 12px', fontSize: '.8rem', width: '100%' }}
+                        onClick={() => handleSelectCity(citySearch)}
+                      >
+                        Set to "{citySearch}" (Check status)
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
+
+          {/* Delivery Note in Middle */}
+          <div className="topbar-announcement">
+            <span>🚚 Free Delivery on orders above ₹500 across Chennai!</span>
+          </div>
+
+          {/* Reward Points on Right */}
           <div className="topbar-tabs">
             {user ? (
-              <Link to="/profile" className="topbar-tab reward-tab" title="Earned based on your previous purchases">
+              <Link to="/profile" className="topbar-tab reward-tab" title="Earned from previous purchases">
                 🪙 Reward Points: <strong>{rewardPoints} pts</strong>
               </Link>
             ) : (
               <Link to="/login" className="topbar-tab reward-tab">
-                🪙 Earn Reward Points
+                🪙 Earn 5% Rewards on Orders
               </Link>
             )}
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* ── Main Navbar ── */}
       <div className="navbar-main">
         <div className="container navbar-main-inner">
           {/* Logo on Left */}
@@ -132,13 +234,13 @@ export default function Navbar() {
             <div className="brand-logo">
               <img
                 src="/logo.png"
-                alt="SVS Bakery"
+                alt="Creamy Bites"
                 className="custom-brand-logo-img"
                 onError={(e) => { e.target.onerror = null; e.target.src = 'http://localhost:5000/uploads/logo.png'; }}
               />
               <div className="brand-text">
-                <span className="brand-name">SVS Bakery</span>
-                <span className="brand-tagline">SWEETS & SNACKS</span>
+                <span className="brand-name">Creamy Bites</span>
+                <span className="brand-tagline">BAKERY &amp; SWEETS</span>
               </div>
             </div>
           </Link>
@@ -251,21 +353,17 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Gold Secondary Bar */}
-      <div className="navbar-secondary">
-        <div className="container">
-          <div className="secondary-links">
-            <Link to="/products?tag=festival" className="secondary-link">Festival Pack</Link>
-            <Link to="/products?bestseller=true" className="secondary-link">Best Sellers</Link>
-            <Link to="/category/sweets" className="secondary-link">Ready To Cook</Link>
-            <Link to="/category/cakes" className="secondary-link">Bakery</Link>
-            <Link to="/category/cookies-biscuits" className="secondary-link">Cookies</Link>
-          </div>
-        </div>
-      </div>
-
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="mobile-menu">
+          {/* Mobile location bar */}
+          <div style={{ padding: '0.6rem 0', borderBottom: '1px solid #eee5d3', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '.85rem' }}>
+            <span>📍 {selectedLocation}</span>
+            <span className={`loc-avail-badge ${isLocationAvailable ? 'available' : 'unavailable'}`}>
+              {isLocationAvailable ? '✅ Available' : '🚫 Chennai Only'}
+            </span>
+          </div>
+
           <Link to="/" className="mobile-link">Home</Link>
           <Link to="/products" className="mobile-link">All Products</Link>
           <Link to="/category/sweets" className="mobile-link">Sweets</Link>

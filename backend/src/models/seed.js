@@ -4,9 +4,26 @@ const Product = require('./Product');
 const User = require('./User');
 
 async function seedMongoDB() {
+  // Ensure default Admin users always exist
+  const admins = [
+    { name: 'Bakery Admin', email: 'admin@svs.com', phone: '9876543210', password: bcrypt.hashSync('admin123', 10), role: 'admin' },
+    { name: 'Bakery Admin', email: 'admin@svsbakery.com', phone: '9876543210', password: bcrypt.hashSync('admin123', 10), role: 'admin' },
+  ];
+
+  for (const adm of admins) {
+    const exists = await User.findOne({ email: adm.email });
+    if (!exists) {
+      await User.create(adm);
+      console.log(`✅ Admin account created: ${adm.email}`);
+    } else if (exists.role !== 'admin') {
+      exists.role = 'admin';
+      await exists.save();
+    }
+  }
+
   const catCount = await Category.countDocuments();
   if (catCount > 0) {
-    console.log('✅ Database already seeded, skipping.');
+    console.log('✅ Database categories & products already seeded.');
     return;
   }
 
@@ -70,18 +87,6 @@ async function seedMongoDB() {
     { category_id: beverages._id, name: 'Rose Sharbat Mix', slug: 'rose-sharbat-mix', description: 'Refreshing rose-flavoured summer drink mix.', image_url: 'https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=600&h=500&fit=crop', base_price: 120, rating: 4.4, rating_count: 250, weights: [{ weight: '200g', price: 120 }, { weight: '500g', price: 280 }] },
     { category_id: beverages._id, name: 'Turmeric Milk Mix', slug: 'turmeric-milk-mix', description: 'Golden milk mix with turmeric and spices.', image_url: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=600&h=500&fit=crop', base_price: 180, is_new: 1, rating: 4.5, rating_count: 190, weights: [{ weight: '200g', price: 180 }, { weight: '400g', price: 340 }] },
   ]);
-
-  // Admin user
-  const adminExists = await User.findOne({ email: 'admin@svsbakery.com' });
-  if (!adminExists) {
-    await User.create({
-      name: 'Bakery Admin',
-      email: 'admin@svsbakery.com',
-      phone: '9876543210',
-      password: bcrypt.hashSync('admin123', 10),
-      role: 'admin',
-    });
-  }
 
   console.log('✅ MongoDB seeded successfully!');
 }
