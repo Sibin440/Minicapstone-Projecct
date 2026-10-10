@@ -31,3 +31,6 @@ Thumbs.db
 
 # Package lock (optional, keep if you want reproducible installs)
 # package-lock.json
+
+# Generated report artefacts
+report/__pycache__/
